@@ -45,7 +45,72 @@ export { Prisma }
  */
 export type User = Prisma.UserModel
 /**
- * Model Post
+ * Model Room
  * 
  */
-export type Post = Prisma.PostModel
+export type Room = Prisma.RoomModel
+/**
+ * Model RoomType
+ * 
+ */
+export type RoomType = Prisma.RoomTypeModel
+/**
+ * Model Reference
+ * 
+ */
+export type Reference = Prisma.ReferenceModel
+/**
+ * Model RoomBooking
+ * 
+ */
+export type RoomBooking = Prisma.RoomBookingModel
+/**
+ * Model RoomBookingRequest
+ * 
+ */
+export type RoomBookingRequest = Prisma.RoomBookingRequestModel
+/**
+ * Model RoomBookingDetail
+ * 
+ */
+export type RoomBookingDetail = Prisma.RoomBookingDetailModel
+/**
+ * Model HotelConfig
+ * 
+ */
+export type HotelConfig = Prisma.HotelConfigModel
+/**
+ * Model Category
+ * 
+ */
+export type Category = Prisma.CategoryModel
+/**
+ * Model Item
+ * 
+ */
+export type Item = Prisma.ItemModel
+/**
+ * Model RestaurantOrder
+ * 
+ */
+export type RestaurantOrder = Prisma.RestaurantOrderModel
+/**
+ * Model RestaurantOrderDetails
+ * 
+ */
+export type RestaurantOrderDetails = Prisma.RestaurantOrderDetailsModel
+/**
+ * Model TicketBooking
+ * 
+ */
+export type TicketBooking = Prisma.TicketBookingModel
+/**
+ * Model TicketBookingDetail
+ * 
+ */
+export type TicketBookingDetail = Prisma.TicketBookingDetailModel
+/**
+ * Model TicketType
+ * 
+ */
+export type TicketType = Prisma.TicketTypeModel

@@ -3,23 +3,339 @@ datasource db {
 }
 
 generator client {
-  provider = "prisma-client"
-  output          = "../src/generated/prisma"
-  moduleFormat  = "cjs"
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "cjs"
 }
 
 model User {
-  id    Int     @default(autoincrement()) @id
-  email String  @unique
-  name  String?
-  posts Post[]
+  userId         String          @id @default(uuid())
+  role           Role
+  email          String          @unique
+  name           String
+  phone          String
+  verified       Boolean         @default(false)
+  password       String
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  ticketBookings TicketBooking[]
 }
 
-model Post {
-  id        Int      @default(autoincrement()) @id
-  title     String
-  content   String?
-  published Boolean? @default(false)
-  author    User?    @relation(fields: [authorId], references: [id])
-  authorId  Int?
+enum AttendanceDayStatus {
+  PRESENT
+  ABSENT
+  LATE
+  EARLY_LEAVE
+  WEEKEND
+  OT_DAY
+  PAID_LEAVE
+  INCOMPLETE
+}
+
+enum AttendanceSource {
+  BIOMETRIC
+  MANUAL
+}
+
+enum PaymentMethod {
+  CASH
+  BANK
+  BKASH
+  NAGAD
+  ROCKET
+}
+
+enum SourceType {
+  ROOM
+  HALL
+  RESTAURANT
+  TICKET
+}
+
+enum RequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  CANCELLED
+}
+
+enum PaymentStatus {
+  UNPAID
+  PARTIALLY_PAID
+  PAID
+}
+
+enum AdvancePaymentStatus {
+  PENDING
+  ADJUSTED
+}
+
+enum PayrollStatus {
+  NOT_PROCESSED
+  PROCESSED
+}
+
+enum DiscountType {
+  NONE
+  FLAT_DISCOUNT
+  PERCENTAGE_DISCOUNT
+}
+
+enum IdentificationType {
+  NID
+  PASSPORT
+  BCN
+  DRIVING_LICENCE
+}
+
+enum SharePaymentType {
+  EXPENSE
+  REVENUE
+}
+
+enum EmployeeType {
+  FULL_TIME
+  PART_TIME
+  CONTRACT
+}
+
+enum EmploymentStatus {
+  ACTIVE
+  INACTIVE
+  TERMINATED
+}
+
+enum BloodGroup {
+  A_POSITIVE
+  A_NEGATIVE
+  B_POSITIVE
+  B_NEGATIVE
+  AB_POSITIVE
+  AB_NEGATIVE
+  O_POSITIVE
+  O_NEGATIVE
+}
+
+enum MaritalStatus {
+  SINGLE
+  MARRIED
+  DIVORCED
+  WIDOWED
+}
+
+enum Education {
+  SSC
+  BELOW_SSC
+  HSC
+  UNIVERSITY
+  ABOVE_UNIVERSITY
+  OTHER
+}
+
+enum WeekDay {
+  MON
+  TUE
+  WED
+  THU
+  FRI
+  SAT
+  SUN
+}
+
+enum DepartmentName {
+  FINANCE_AND_ACCOUNTS
+  HR
+  ROOM_MANAGEMENT
+  HALL_MANAGEMENT
+}
+
+enum Role {
+  SUPER_ADMIN
+  ADMIN
+  STAFF
+  CUSTOMER
+  SHAREHOLDER
+}
+
+model Room {
+  id                 String              @id @default(uuid())
+  roomNumber         String
+  isUnderMaintenance Boolean             @default(false)
+  price              Float
+  roomTypeId         String
+  roomType           RoomType            @relation(fields: [roomTypeId], references: [id])
+  bookings           RoomBookingDetail[]
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  deletedAt          DateTime?
+}
+
+model RoomType {
+  id          String    @id @default(uuid())
+  name        String
+  description String?
+  rooms       Room[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+}
+
+model Reference {
+  id        String    @id @default(uuid())
+  name      String
+  phone     String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+  // roomBookings RoomBooking[]
+}
+
+model RoomBooking {
+  id                           String              @id @default(uuid())
+  customerName                 String
+  customerPhone                String
+  customerEmail                String?
+  customerIdentificationType   IdentificationType
+  customerIdentificationNumber String
+  discountType                 DiscountType?
+  baseAmount                   Float
+  discountAmount               Float?
+  totalAmount                  Float
+  paidAmount                   Float               @default(0)
+  configCheckInTime            String
+  configCheckOutTime           String
+  invoices                     RoomBookingDetail[]
+  createdAt                    DateTime            @default(now())
+  updatedAt                    DateTime            @updatedAt
+}
+
+model RoomBookingRequest {
+  id            String        @id @default(uuid())
+  customerId    String
+  customerName  String
+  customerPhone String
+  customerEmail String?
+  checkinDate   DateTime
+  checkoutDate  DateTime
+  status        RequestStatus @default(PENDING)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+model RoomBookingDetail {
+  id            String       @id @default(uuid())
+  roomBookingId String?
+  checkinDate   DateTime
+  checkoutDate  DateTime?
+  estimateDays  Int
+  roomId        String
+  price         Float
+  booking       RoomBooking? @relation(fields: [roomBookingId], references: [id])
+  room          Room         @relation(fields: [roomId], references: [id])
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  @@index([roomId, checkinDate, checkoutDate], name: "room_booking_detail_roomid_checkin_checkout_idx")
+}
+
+model HotelConfig {
+  id           String   @id @default(uuid())
+  checkInTime  String
+  checkOutTime String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Category {
+  id        String    @id @default(uuid())
+  name      String
+  items     Item[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
+
+model Item {
+  id          String                   @id @default(uuid())
+  name        String
+  price       Float
+  description String?
+  image       String?
+  categories  Category[]
+  orderItems  RestaurantOrderDetails[]
+  createdAt   DateTime                 @default(now())
+  updatedAt   DateTime                 @updatedAt
+  deletedAt   DateTime?
+}
+
+model RestaurantOrder {
+  id             String                   @id @default(uuid())
+  discountAmount Float?
+  discountType   DiscountType
+  customerName   String?
+  customerPhone  String?
+  paymentStatus  PaymentStatus            @default(UNPAID)
+  baseAmount     Float
+  totalAmount    Float
+  paidAmount     Float                    @default(0)
+  staffId        String
+  orderItems     RestaurantOrderDetails[]
+  createdAt      DateTime                 @default(now())
+  updatedAt      DateTime                 @updatedAt
+}
+
+model RestaurantOrderDetails {
+  id                String          @id @default(uuid())
+  restaurantOrderId String
+  itemId            String
+  quantity          Int
+  itemPrice         Float
+  itemName          String
+  discountAmount    Float?
+  discountType      DiscountType
+  item              Item            @relation(fields: [itemId], references: [id])
+  order             RestaurantOrder @relation(fields: [restaurantOrderId], references: [id])
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+}
+
+enum TicketBookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+}
+
+model TicketBooking {
+  id             String                @id @default(uuid())
+  totalAmount    Float
+  customerName   String?
+  customerPhone  String?
+  staffId        String
+  userId         String?
+  user           User?                 @relation(fields: [userId], references: [userId])
+  status         TicketBookingStatus   @default(PENDING)
+  bookingDetails TicketBookingDetail[]
+  createdAt      DateTime              @default(now())
+  updatedAt      DateTime              @updatedAt
+}
+
+model TicketBookingDetail {
+  id              String        @id @default(uuid())
+  ticketBookingId String
+  ticketTypeId    String
+  quantity        Int
+  price           Float
+  ticketBooking   TicketBooking @relation(fields: [ticketBookingId], references: [id])
+  ticketType      TicketType    @relation(fields: [ticketTypeId], references: [id])
+}
+
+model TicketType {
+  id             String                @id @default(uuid())
+  name           String
+  image          String?
+  price          Float
+  bookingDetails TicketBookingDetail[]
+  createdAt      DateTime              @default(now())
+  updatedAt      DateTime              @updatedAt
+  deletedAt      DateTime?
 }

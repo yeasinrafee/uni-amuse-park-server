@@ -9,7 +9,203 @@
 * 🟢 You can import this file directly.
 */
 
+export const AttendanceDayStatus = {
+  PRESENT: 'PRESENT',
+  ABSENT: 'ABSENT',
+  LATE: 'LATE',
+  EARLY_LEAVE: 'EARLY_LEAVE',
+  WEEKEND: 'WEEKEND',
+  OT_DAY: 'OT_DAY',
+  PAID_LEAVE: 'PAID_LEAVE',
+  INCOMPLETE: 'INCOMPLETE'
+} as const
+
+export type AttendanceDayStatus = (typeof AttendanceDayStatus)[keyof typeof AttendanceDayStatus]
 
 
-// This file is empty because there are no enums in the schema.
-export {}
+export const AttendanceSource = {
+  BIOMETRIC: 'BIOMETRIC',
+  MANUAL: 'MANUAL'
+} as const
+
+export type AttendanceSource = (typeof AttendanceSource)[keyof typeof AttendanceSource]
+
+
+export const PaymentMethod = {
+  CASH: 'CASH',
+  BANK: 'BANK',
+  BKASH: 'BKASH',
+  NAGAD: 'NAGAD',
+  ROCKET: 'ROCKET'
+} as const
+
+export type PaymentMethod = (typeof PaymentMethod)[keyof typeof PaymentMethod]
+
+
+export const SourceType = {
+  ROOM: 'ROOM',
+  HALL: 'HALL',
+  RESTAURANT: 'RESTAURANT',
+  TICKET: 'TICKET'
+} as const
+
+export type SourceType = (typeof SourceType)[keyof typeof SourceType]
+
+
+export const RequestStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type RequestStatus = (typeof RequestStatus)[keyof typeof RequestStatus]
+
+
+export const PaymentStatus = {
+  UNPAID: 'UNPAID',
+  PARTIALLY_PAID: 'PARTIALLY_PAID',
+  PAID: 'PAID'
+} as const
+
+export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
+
+
+export const AdvancePaymentStatus = {
+  PENDING: 'PENDING',
+  ADJUSTED: 'ADJUSTED'
+} as const
+
+export type AdvancePaymentStatus = (typeof AdvancePaymentStatus)[keyof typeof AdvancePaymentStatus]
+
+
+export const PayrollStatus = {
+  NOT_PROCESSED: 'NOT_PROCESSED',
+  PROCESSED: 'PROCESSED'
+} as const
+
+export type PayrollStatus = (typeof PayrollStatus)[keyof typeof PayrollStatus]
+
+
+export const DiscountType = {
+  NONE: 'NONE',
+  FLAT_DISCOUNT: 'FLAT_DISCOUNT',
+  PERCENTAGE_DISCOUNT: 'PERCENTAGE_DISCOUNT'
+} as const
+
+export type DiscountType = (typeof DiscountType)[keyof typeof DiscountType]
+
+
+export const IdentificationType = {
+  NID: 'NID',
+  PASSPORT: 'PASSPORT',
+  BCN: 'BCN',
+  DRIVING_LICENCE: 'DRIVING_LICENCE'
+} as const
+
+export type IdentificationType = (typeof IdentificationType)[keyof typeof IdentificationType]
+
+
+export const SharePaymentType = {
+  EXPENSE: 'EXPENSE',
+  REVENUE: 'REVENUE'
+} as const
+
+export type SharePaymentType = (typeof SharePaymentType)[keyof typeof SharePaymentType]
+
+
+export const EmployeeType = {
+  FULL_TIME: 'FULL_TIME',
+  PART_TIME: 'PART_TIME',
+  CONTRACT: 'CONTRACT'
+} as const
+
+export type EmployeeType = (typeof EmployeeType)[keyof typeof EmployeeType]
+
+
+export const EmploymentStatus = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE',
+  TERMINATED: 'TERMINATED'
+} as const
+
+export type EmploymentStatus = (typeof EmploymentStatus)[keyof typeof EmploymentStatus]
+
+
+export const BloodGroup = {
+  A_POSITIVE: 'A_POSITIVE',
+  A_NEGATIVE: 'A_NEGATIVE',
+  B_POSITIVE: 'B_POSITIVE',
+  B_NEGATIVE: 'B_NEGATIVE',
+  AB_POSITIVE: 'AB_POSITIVE',
+  AB_NEGATIVE: 'AB_NEGATIVE',
+  O_POSITIVE: 'O_POSITIVE',
+  O_NEGATIVE: 'O_NEGATIVE'
+} as const
+
+export type BloodGroup = (typeof BloodGroup)[keyof typeof BloodGroup]
+
+
+export const MaritalStatus = {
+  SINGLE: 'SINGLE',
+  MARRIED: 'MARRIED',
+  DIVORCED: 'DIVORCED',
+  WIDOWED: 'WIDOWED'
+} as const
+
+export type MaritalStatus = (typeof MaritalStatus)[keyof typeof MaritalStatus]
+
+
+export const Education = {
+  SSC: 'SSC',
+  BELOW_SSC: 'BELOW_SSC',
+  HSC: 'HSC',
+  UNIVERSITY: 'UNIVERSITY',
+  ABOVE_UNIVERSITY: 'ABOVE_UNIVERSITY',
+  OTHER: 'OTHER'
+} as const
+
+export type Education = (typeof Education)[keyof typeof Education]
+
+
+export const WeekDay = {
+  MON: 'MON',
+  TUE: 'TUE',
+  WED: 'WED',
+  THU: 'THU',
+  FRI: 'FRI',
+  SAT: 'SAT',
+  SUN: 'SUN'
+} as const
+
+export type WeekDay = (typeof WeekDay)[keyof typeof WeekDay]
+
+
+export const DepartmentName = {
+  FINANCE_AND_ACCOUNTS: 'FINANCE_AND_ACCOUNTS',
+  HR: 'HR',
+  ROOM_MANAGEMENT: 'ROOM_MANAGEMENT',
+  HALL_MANAGEMENT: 'HALL_MANAGEMENT'
+} as const
+
+export type DepartmentName = (typeof DepartmentName)[keyof typeof DepartmentName]
+
+
+export const Role = {
+  SUPER_ADMIN: 'SUPER_ADMIN',
+  ADMIN: 'ADMIN',
+  STAFF: 'STAFF',
+  CUSTOMER: 'CUSTOMER',
+  SHAREHOLDER: 'SHAREHOLDER'
+} as const
+
+export type Role = (typeof Role)[keyof typeof Role]
+
+
+export const TicketBookingStatus = {
+  PENDING: 'PENDING',
+  CONFIRMED: 'CONFIRMED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type TicketBookingStatus = (typeof TicketBookingStatus)[keyof typeof TicketBookingStatus]
