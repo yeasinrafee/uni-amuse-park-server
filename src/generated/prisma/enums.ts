@@ -209,3 +209,15 @@ export const TicketBookingStatus = {
 } as const
 
 export type TicketBookingStatus = (typeof TicketBookingStatus)[keyof typeof TicketBookingStatus]
+
+
+export const FacilityType = {
+  ROOM: 'ROOM',
+  HALL: 'HALL',
+  RIDE: 'RIDE',
+  RESTAURANT: 'RESTAURANT',
+  THEATER: 'THEATER',
+  PARK: 'PARK'
+} as const
+
+export type FacilityType = (typeof FacilityType)[keyof typeof FacilityType]

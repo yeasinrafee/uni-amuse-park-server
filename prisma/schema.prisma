@@ -339,3 +339,112 @@ model TicketType {
   updatedAt      DateTime              @updatedAt
   deletedAt      DateTime?
 }
+
+// website section model 
+enum FacilityType {
+  ROOM
+  HALL
+  RIDE
+  RESTAURANT
+  THEATER
+  PARK
+}
+
+model Banner {
+  id               String   @id @default(uuid())
+  title            String
+  subTitle         String
+  shortDescription String
+  image            String?
+  isActive         Boolean  @default(false)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model Facilities {
+  id          String       @id @default(uuid())
+  title       String
+  subTitle    String?
+  description String[]
+  features    String[]
+  image       String?
+  footerTitle String?
+  type        FacilityType
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model Opening {
+  id        String   @id @default(uuid())
+  day       String
+  startTime DateTime
+  endTime   DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Team {
+  id          String   @id @default(uuid())
+  image       String?
+  name        String
+  designation String
+  order       Int      @unique
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Gallery {
+  id        String   @id @default(uuid())
+  image     String?
+  order     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model HomeGallery {
+  id        String   @id @default(uuid())
+  image     String?
+  order     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Moments {
+  id        String   @id @default(uuid())
+  image     String?
+  order     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model LogoContact {
+  id          String   @id
+  headerLogo  String?
+  footerLogo  String?
+  email       String?
+  phone       String?
+  location    String?
+  socialLinks Json?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model UsefulLink {
+  id                String   @id @default("USEFUL_LINK")
+  privacyPolicy     String?  @db.Text
+  termsAndCondition String?  @db.Text
+  disclaimer        String?  @db.Text
+  faq               Json?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+model Support {
+  id        String   @id @default(uuid())
+  name      String?
+  email     String
+  subject   String?
+  message   String   @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

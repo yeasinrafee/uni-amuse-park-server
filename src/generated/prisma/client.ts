@@ -114,3 +114,53 @@ export type TicketBookingDetail = Prisma.TicketBookingDetailModel
  * 
  */
 export type TicketType = Prisma.TicketTypeModel
+/**
+ * Model Banner
+ * 
+ */
+export type Banner = Prisma.BannerModel
+/**
+ * Model Facilities
+ * 
+ */
+export type Facilities = Prisma.FacilitiesModel
+/**
+ * Model Opening
+ * 
+ */
+export type Opening = Prisma.OpeningModel
+/**
+ * Model Team
+ * 
+ */
+export type Team = Prisma.TeamModel
+/**
+ * Model Gallery
+ * 
+ */
+export type Gallery = Prisma.GalleryModel
+/**
+ * Model HomeGallery
+ * 
+ */
+export type HomeGallery = Prisma.HomeGalleryModel
+/**
+ * Model Moments
+ * 
+ */
+export type Moments = Prisma.MomentsModel
+/**
+ * Model LogoContact
+ * 
+ */
+export type LogoContact = Prisma.LogoContactModel
+/**
+ * Model UsefulLink
+ * 
+ */
+export type UsefulLink = Prisma.UsefulLinkModel
+/**
+ * Model Support
+ * 
+ */
+export type Support = Prisma.SupportModel
