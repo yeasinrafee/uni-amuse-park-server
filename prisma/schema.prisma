@@ -293,6 +293,8 @@ model RestaurantOrderDetails {
   itemName          String
   discountAmount    Float?
   discountType      DiscountType
+  subTotal          Float           @default(0)
+  total             Float           @default(0)
   item              Item            @relation(fields: [itemId], references: [id])
   order             RestaurantOrder @relation(fields: [restaurantOrderId], references: [id])
   createdAt         DateTime        @default(now())

@@ -30,12 +30,16 @@ export type RestaurantOrderDetailsAvgAggregateOutputType = {
   quantity: number | null
   itemPrice: number | null
   discountAmount: number | null
+  subTotal: number | null
+  total: number | null
 }
 
 export type RestaurantOrderDetailsSumAggregateOutputType = {
   quantity: number | null
   itemPrice: number | null
   discountAmount: number | null
+  subTotal: number | null
+  total: number | null
 }
 
 export type RestaurantOrderDetailsMinAggregateOutputType = {
@@ -47,6 +51,8 @@ export type RestaurantOrderDetailsMinAggregateOutputType = {
   itemName: string | null
   discountAmount: number | null
   discountType: $Enums.DiscountType | null
+  subTotal: number | null
+  total: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -60,6 +66,8 @@ export type RestaurantOrderDetailsMaxAggregateOutputType = {
   itemName: string | null
   discountAmount: number | null
   discountType: $Enums.DiscountType | null
+  subTotal: number | null
+  total: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -73,6 +81,8 @@ export type RestaurantOrderDetailsCountAggregateOutputType = {
   itemName: number
   discountAmount: number
   discountType: number
+  subTotal: number
+  total: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -83,12 +93,16 @@ export type RestaurantOrderDetailsAvgAggregateInputType = {
   quantity?: true
   itemPrice?: true
   discountAmount?: true
+  subTotal?: true
+  total?: true
 }
 
 export type RestaurantOrderDetailsSumAggregateInputType = {
   quantity?: true
   itemPrice?: true
   discountAmount?: true
+  subTotal?: true
+  total?: true
 }
 
 export type RestaurantOrderDetailsMinAggregateInputType = {
@@ -100,6 +114,8 @@ export type RestaurantOrderDetailsMinAggregateInputType = {
   itemName?: true
   discountAmount?: true
   discountType?: true
+  subTotal?: true
+  total?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -113,6 +129,8 @@ export type RestaurantOrderDetailsMaxAggregateInputType = {
   itemName?: true
   discountAmount?: true
   discountType?: true
+  subTotal?: true
+  total?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -126,6 +144,8 @@ export type RestaurantOrderDetailsCountAggregateInputType = {
   itemName?: true
   discountAmount?: true
   discountType?: true
+  subTotal?: true
+  total?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -226,6 +246,8 @@ export type RestaurantOrderDetailsGroupByOutputType = {
   itemName: string
   discountAmount: number | null
   discountType: $Enums.DiscountType
+  subTotal: number
+  total: number
   createdAt: Date
   updatedAt: Date
   _count: RestaurantOrderDetailsCountAggregateOutputType | null
@@ -262,6 +284,8 @@ export type RestaurantOrderDetailsWhereInput = {
   itemName?: Prisma.StringFilter<"RestaurantOrderDetails"> | string
   discountAmount?: Prisma.FloatNullableFilter<"RestaurantOrderDetails"> | number | null
   discountType?: Prisma.EnumDiscountTypeFilter<"RestaurantOrderDetails"> | $Enums.DiscountType
+  subTotal?: Prisma.FloatFilter<"RestaurantOrderDetails"> | number
+  total?: Prisma.FloatFilter<"RestaurantOrderDetails"> | number
   createdAt?: Prisma.DateTimeFilter<"RestaurantOrderDetails"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"RestaurantOrderDetails"> | Date | string
   item?: Prisma.XOR<Prisma.ItemScalarRelationFilter, Prisma.ItemWhereInput>
@@ -277,6 +301,8 @@ export type RestaurantOrderDetailsOrderByWithRelationInput = {
   itemName?: Prisma.SortOrder
   discountAmount?: Prisma.SortOrderInput | Prisma.SortOrder
   discountType?: Prisma.SortOrder
+  subTotal?: Prisma.SortOrder
+  total?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   item?: Prisma.ItemOrderByWithRelationInput
@@ -295,6 +321,8 @@ export type RestaurantOrderDetailsWhereUniqueInput = Prisma.AtLeast<{
   itemName?: Prisma.StringFilter<"RestaurantOrderDetails"> | string
   discountAmount?: Prisma.FloatNullableFilter<"RestaurantOrderDetails"> | number | null
   discountType?: Prisma.EnumDiscountTypeFilter<"RestaurantOrderDetails"> | $Enums.DiscountType
+  subTotal?: Prisma.FloatFilter<"RestaurantOrderDetails"> | number
+  total?: Prisma.FloatFilter<"RestaurantOrderDetails"> | number
   createdAt?: Prisma.DateTimeFilter<"RestaurantOrderDetails"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"RestaurantOrderDetails"> | Date | string
   item?: Prisma.XOR<Prisma.ItemScalarRelationFilter, Prisma.ItemWhereInput>
@@ -310,6 +338,8 @@ export type RestaurantOrderDetailsOrderByWithAggregationInput = {
   itemName?: Prisma.SortOrder
   discountAmount?: Prisma.SortOrderInput | Prisma.SortOrder
   discountType?: Prisma.SortOrder
+  subTotal?: Prisma.SortOrder
+  total?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.RestaurantOrderDetailsCountOrderByAggregateInput
@@ -331,6 +361,8 @@ export type RestaurantOrderDetailsScalarWhereWithAggregatesInput = {
   itemName?: Prisma.StringWithAggregatesFilter<"RestaurantOrderDetails"> | string
   discountAmount?: Prisma.FloatNullableWithAggregatesFilter<"RestaurantOrderDetails"> | number | null
   discountType?: Prisma.EnumDiscountTypeWithAggregatesFilter<"RestaurantOrderDetails"> | $Enums.DiscountType
+  subTotal?: Prisma.FloatWithAggregatesFilter<"RestaurantOrderDetails"> | number
+  total?: Prisma.FloatWithAggregatesFilter<"RestaurantOrderDetails"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"RestaurantOrderDetails"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"RestaurantOrderDetails"> | Date | string
 }
@@ -342,6 +374,8 @@ export type RestaurantOrderDetailsCreateInput = {
   itemName: string
   discountAmount?: number | null
   discountType: $Enums.DiscountType
+  subTotal?: number
+  total?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   item: Prisma.ItemCreateNestedOneWithoutOrderItemsInput
@@ -357,6 +391,8 @@ export type RestaurantOrderDetailsUncheckedCreateInput = {
   itemName: string
   discountAmount?: number | null
   discountType: $Enums.DiscountType
+  subTotal?: number
+  total?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -368,6 +404,8 @@ export type RestaurantOrderDetailsUpdateInput = {
   itemName?: Prisma.StringFieldUpdateOperationsInput | string
   discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  subTotal?: Prisma.FloatFieldUpdateOperationsInput | number
+  total?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   item?: Prisma.ItemUpdateOneRequiredWithoutOrderItemsNestedInput
@@ -383,6 +421,8 @@ export type RestaurantOrderDetailsUncheckedUpdateInput = {
   itemName?: Prisma.StringFieldUpdateOperationsInput | string
   discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  subTotal?: Prisma.FloatFieldUpdateOperationsInput | number
+  total?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -396,6 +436,8 @@ export type RestaurantOrderDetailsCreateManyInput = {
   itemName: string
   discountAmount?: number | null
   discountType: $Enums.DiscountType
+  subTotal?: number
+  total?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -407,6 +449,8 @@ export type RestaurantOrderDetailsUpdateManyMutationInput = {
   itemName?: Prisma.StringFieldUpdateOperationsInput | string
   discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  subTotal?: Prisma.FloatFieldUpdateOperationsInput | number
+  total?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -420,6 +464,8 @@ export type RestaurantOrderDetailsUncheckedUpdateManyInput = {
   itemName?: Prisma.StringFieldUpdateOperationsInput | string
   discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  subTotal?: Prisma.FloatFieldUpdateOperationsInput | number
+  total?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -443,6 +489,8 @@ export type RestaurantOrderDetailsCountOrderByAggregateInput = {
   itemName?: Prisma.SortOrder
   discountAmount?: Prisma.SortOrder
   discountType?: Prisma.SortOrder
+  subTotal?: Prisma.SortOrder
+  total?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -451,6 +499,8 @@ export type RestaurantOrderDetailsAvgOrderByAggregateInput = {
   quantity?: Prisma.SortOrder
   itemPrice?: Prisma.SortOrder
   discountAmount?: Prisma.SortOrder
+  subTotal?: Prisma.SortOrder
+  total?: Prisma.SortOrder
 }
 
 export type RestaurantOrderDetailsMaxOrderByAggregateInput = {
@@ -462,6 +512,8 @@ export type RestaurantOrderDetailsMaxOrderByAggregateInput = {
   itemName?: Prisma.SortOrder
   discountAmount?: Prisma.SortOrder
   discountType?: Prisma.SortOrder
+  subTotal?: Prisma.SortOrder
+  total?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -475,6 +527,8 @@ export type RestaurantOrderDetailsMinOrderByAggregateInput = {
   itemName?: Prisma.SortOrder
   discountAmount?: Prisma.SortOrder
   discountType?: Prisma.SortOrder
+  subTotal?: Prisma.SortOrder
+  total?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -483,6 +537,8 @@ export type RestaurantOrderDetailsSumOrderByAggregateInput = {
   quantity?: Prisma.SortOrder
   itemPrice?: Prisma.SortOrder
   discountAmount?: Prisma.SortOrder
+  subTotal?: Prisma.SortOrder
+  total?: Prisma.SortOrder
 }
 
 export type RestaurantOrderDetailsCreateNestedManyWithoutItemInput = {
@@ -576,6 +632,8 @@ export type RestaurantOrderDetailsCreateWithoutItemInput = {
   itemName: string
   discountAmount?: number | null
   discountType: $Enums.DiscountType
+  subTotal?: number
+  total?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   order: Prisma.RestaurantOrderCreateNestedOneWithoutOrderItemsInput
@@ -589,6 +647,8 @@ export type RestaurantOrderDetailsUncheckedCreateWithoutItemInput = {
   itemName: string
   discountAmount?: number | null
   discountType: $Enums.DiscountType
+  subTotal?: number
+  total?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -631,6 +691,8 @@ export type RestaurantOrderDetailsScalarWhereInput = {
   itemName?: Prisma.StringFilter<"RestaurantOrderDetails"> | string
   discountAmount?: Prisma.FloatNullableFilter<"RestaurantOrderDetails"> | number | null
   discountType?: Prisma.EnumDiscountTypeFilter<"RestaurantOrderDetails"> | $Enums.DiscountType
+  subTotal?: Prisma.FloatFilter<"RestaurantOrderDetails"> | number
+  total?: Prisma.FloatFilter<"RestaurantOrderDetails"> | number
   createdAt?: Prisma.DateTimeFilter<"RestaurantOrderDetails"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"RestaurantOrderDetails"> | Date | string
 }
@@ -642,6 +704,8 @@ export type RestaurantOrderDetailsCreateWithoutOrderInput = {
   itemName: string
   discountAmount?: number | null
   discountType: $Enums.DiscountType
+  subTotal?: number
+  total?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   item: Prisma.ItemCreateNestedOneWithoutOrderItemsInput
@@ -655,6 +719,8 @@ export type RestaurantOrderDetailsUncheckedCreateWithoutOrderInput = {
   itemName: string
   discountAmount?: number | null
   discountType: $Enums.DiscountType
+  subTotal?: number
+  total?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -693,6 +759,8 @@ export type RestaurantOrderDetailsCreateManyItemInput = {
   itemName: string
   discountAmount?: number | null
   discountType: $Enums.DiscountType
+  subTotal?: number
+  total?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -704,6 +772,8 @@ export type RestaurantOrderDetailsUpdateWithoutItemInput = {
   itemName?: Prisma.StringFieldUpdateOperationsInput | string
   discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  subTotal?: Prisma.FloatFieldUpdateOperationsInput | number
+  total?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   order?: Prisma.RestaurantOrderUpdateOneRequiredWithoutOrderItemsNestedInput
@@ -717,6 +787,8 @@ export type RestaurantOrderDetailsUncheckedUpdateWithoutItemInput = {
   itemName?: Prisma.StringFieldUpdateOperationsInput | string
   discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  subTotal?: Prisma.FloatFieldUpdateOperationsInput | number
+  total?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -729,6 +801,8 @@ export type RestaurantOrderDetailsUncheckedUpdateManyWithoutItemInput = {
   itemName?: Prisma.StringFieldUpdateOperationsInput | string
   discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  subTotal?: Prisma.FloatFieldUpdateOperationsInput | number
+  total?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -741,6 +815,8 @@ export type RestaurantOrderDetailsCreateManyOrderInput = {
   itemName: string
   discountAmount?: number | null
   discountType: $Enums.DiscountType
+  subTotal?: number
+  total?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -752,6 +828,8 @@ export type RestaurantOrderDetailsUpdateWithoutOrderInput = {
   itemName?: Prisma.StringFieldUpdateOperationsInput | string
   discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  subTotal?: Prisma.FloatFieldUpdateOperationsInput | number
+  total?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   item?: Prisma.ItemUpdateOneRequiredWithoutOrderItemsNestedInput
@@ -765,6 +843,8 @@ export type RestaurantOrderDetailsUncheckedUpdateWithoutOrderInput = {
   itemName?: Prisma.StringFieldUpdateOperationsInput | string
   discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  subTotal?: Prisma.FloatFieldUpdateOperationsInput | number
+  total?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -777,6 +857,8 @@ export type RestaurantOrderDetailsUncheckedUpdateManyWithoutOrderInput = {
   itemName?: Prisma.StringFieldUpdateOperationsInput | string
   discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  subTotal?: Prisma.FloatFieldUpdateOperationsInput | number
+  total?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -792,6 +874,8 @@ export type RestaurantOrderDetailsSelect<ExtArgs extends runtime.Types.Extension
   itemName?: boolean
   discountAmount?: boolean
   discountType?: boolean
+  subTotal?: boolean
+  total?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   item?: boolean | Prisma.ItemDefaultArgs<ExtArgs>
@@ -807,6 +891,8 @@ export type RestaurantOrderDetailsSelectCreateManyAndReturn<ExtArgs extends runt
   itemName?: boolean
   discountAmount?: boolean
   discountType?: boolean
+  subTotal?: boolean
+  total?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   item?: boolean | Prisma.ItemDefaultArgs<ExtArgs>
@@ -822,6 +908,8 @@ export type RestaurantOrderDetailsSelectUpdateManyAndReturn<ExtArgs extends runt
   itemName?: boolean
   discountAmount?: boolean
   discountType?: boolean
+  subTotal?: boolean
+  total?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   item?: boolean | Prisma.ItemDefaultArgs<ExtArgs>
@@ -837,11 +925,13 @@ export type RestaurantOrderDetailsSelectScalar = {
   itemName?: boolean
   discountAmount?: boolean
   discountType?: boolean
+  subTotal?: boolean
+  total?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type RestaurantOrderDetailsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "restaurantOrderId" | "itemId" | "quantity" | "itemPrice" | "itemName" | "discountAmount" | "discountType" | "createdAt" | "updatedAt", ExtArgs["result"]["restaurantOrderDetails"]>
+export type RestaurantOrderDetailsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "restaurantOrderId" | "itemId" | "quantity" | "itemPrice" | "itemName" | "discountAmount" | "discountType" | "subTotal" | "total" | "createdAt" | "updatedAt", ExtArgs["result"]["restaurantOrderDetails"]>
 export type RestaurantOrderDetailsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   item?: boolean | Prisma.ItemDefaultArgs<ExtArgs>
   order?: boolean | Prisma.RestaurantOrderDefaultArgs<ExtArgs>
@@ -870,6 +960,8 @@ export type $RestaurantOrderDetailsPayload<ExtArgs extends runtime.Types.Extensi
     itemName: string
     discountAmount: number | null
     discountType: $Enums.DiscountType
+    subTotal: number
+    total: number
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["restaurantOrderDetails"]>
@@ -1305,6 +1397,8 @@ export interface RestaurantOrderDetailsFieldRefs {
   readonly itemName: Prisma.FieldRef<"RestaurantOrderDetails", 'String'>
   readonly discountAmount: Prisma.FieldRef<"RestaurantOrderDetails", 'Float'>
   readonly discountType: Prisma.FieldRef<"RestaurantOrderDetails", 'DiscountType'>
+  readonly subTotal: Prisma.FieldRef<"RestaurantOrderDetails", 'Float'>
+  readonly total: Prisma.FieldRef<"RestaurantOrderDetails", 'Float'>
   readonly createdAt: Prisma.FieldRef<"RestaurantOrderDetails", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"RestaurantOrderDetails", 'DateTime'>
 }

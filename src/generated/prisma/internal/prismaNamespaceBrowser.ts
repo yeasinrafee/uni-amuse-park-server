@@ -262,6 +262,8 @@ export const RestaurantOrderDetailsScalarFieldEnum = {
   itemName: 'itemName',
   discountAmount: 'discountAmount',
   discountType: 'discountType',
+  subTotal: 'subTotal',
+  total: 'total',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
