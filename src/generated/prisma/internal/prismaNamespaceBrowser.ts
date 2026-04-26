@@ -54,16 +54,13 @@ export const ModelName = {
   User: 'User',
   Room: 'Room',
   RoomType: 'RoomType',
-  Reference: 'Reference',
   RoomBooking: 'RoomBooking',
-  RoomBookingRequest: 'RoomBookingRequest',
-  RoomBookingDetail: 'RoomBookingDetail',
-  HotelConfig: 'HotelConfig',
   Category: 'Category',
   Item: 'Item',
   RestaurantOrder: 'RestaurantOrder',
   RestaurantOrderDetails: 'RestaurantOrderDetails',
   TicketBooking: 'TicketBooking',
+  UnifiedBooking: 'UnifiedBooking',
   TicketBookingDetail: 'TicketBookingDetail',
   TicketType: 'TicketType',
   Banner: 'Banner',
@@ -135,18 +132,6 @@ export const RoomTypeScalarFieldEnum = {
 export type RoomTypeScalarFieldEnum = (typeof RoomTypeScalarFieldEnum)[keyof typeof RoomTypeScalarFieldEnum]
 
 
-export const ReferenceScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  phone: 'phone',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt'
-} as const
-
-export type ReferenceScalarFieldEnum = (typeof ReferenceScalarFieldEnum)[keyof typeof ReferenceScalarFieldEnum]
-
-
 export const RoomBookingScalarFieldEnum = {
   id: 'id',
   customerName: 'customerName',
@@ -154,60 +139,21 @@ export const RoomBookingScalarFieldEnum = {
   customerEmail: 'customerEmail',
   customerIdentificationType: 'customerIdentificationType',
   customerIdentificationNumber: 'customerIdentificationNumber',
-  discountType: 'discountType',
-  baseAmount: 'baseAmount',
-  discountAmount: 'discountAmount',
+  userId: 'userId',
+  paymentMethod: 'paymentMethod',
   totalAmount: 'totalAmount',
   paidAmount: 'paidAmount',
-  configCheckInTime: 'configCheckInTime',
-  configCheckOutTime: 'configCheckOutTime',
+  paymentStatus: 'paymentStatus',
+  roomId: 'roomId',
+  checkinDate: 'checkinDate',
+  checkoutDate: 'checkoutDate',
+  status: 'status',
+  unifiedBookingId: 'unifiedBookingId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type RoomBookingScalarFieldEnum = (typeof RoomBookingScalarFieldEnum)[keyof typeof RoomBookingScalarFieldEnum]
-
-
-export const RoomBookingRequestScalarFieldEnum = {
-  id: 'id',
-  customerId: 'customerId',
-  customerName: 'customerName',
-  customerPhone: 'customerPhone',
-  customerEmail: 'customerEmail',
-  checkinDate: 'checkinDate',
-  checkoutDate: 'checkoutDate',
-  status: 'status',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type RoomBookingRequestScalarFieldEnum = (typeof RoomBookingRequestScalarFieldEnum)[keyof typeof RoomBookingRequestScalarFieldEnum]
-
-
-export const RoomBookingDetailScalarFieldEnum = {
-  id: 'id',
-  roomBookingId: 'roomBookingId',
-  checkinDate: 'checkinDate',
-  checkoutDate: 'checkoutDate',
-  estimateDays: 'estimateDays',
-  roomId: 'roomId',
-  price: 'price',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type RoomBookingDetailScalarFieldEnum = (typeof RoomBookingDetailScalarFieldEnum)[keyof typeof RoomBookingDetailScalarFieldEnum]
-
-
-export const HotelConfigScalarFieldEnum = {
-  id: 'id',
-  checkInTime: 'checkInTime',
-  checkOutTime: 'checkOutTime',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type HotelConfigScalarFieldEnum = (typeof HotelConfigScalarFieldEnum)[keyof typeof HotelConfigScalarFieldEnum]
 
 
 export const CategoryScalarFieldEnum = {
@@ -242,10 +188,12 @@ export const RestaurantOrderScalarFieldEnum = {
   customerName: 'customerName',
   customerPhone: 'customerPhone',
   paymentStatus: 'paymentStatus',
+  status: 'status',
   baseAmount: 'baseAmount',
   totalAmount: 'totalAmount',
   paidAmount: 'paidAmount',
   staffId: 'staffId',
+  unifiedBookingId: 'unifiedBookingId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -279,11 +227,30 @@ export const TicketBookingScalarFieldEnum = {
   staffId: 'staffId',
   userId: 'userId',
   status: 'status',
+  unifiedBookingId: 'unifiedBookingId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type TicketBookingScalarFieldEnum = (typeof TicketBookingScalarFieldEnum)[keyof typeof TicketBookingScalarFieldEnum]
+
+
+export const UnifiedBookingScalarFieldEnum = {
+  id: 'id',
+  totalAmount: 'totalAmount',
+  paidAmount: 'paidAmount',
+  paymentStatus: 'paymentStatus',
+  status: 'status',
+  paymentMethod: 'paymentMethod',
+  customerName: 'customerName',
+  customerPhone: 'customerPhone',
+  userId: 'userId',
+  staffId: 'staffId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UnifiedBookingScalarFieldEnum = (typeof UnifiedBookingScalarFieldEnum)[keyof typeof UnifiedBookingScalarFieldEnum]
 
 
 export const TicketBookingDetailScalarFieldEnum = {

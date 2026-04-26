@@ -202,6 +202,24 @@ export const Role = {
 export type Role = (typeof Role)[keyof typeof Role]
 
 
+export const RoomBookingStatus = {
+  PENDING: 'PENDING',
+  CONFIRMED: 'CONFIRMED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type RoomBookingStatus = (typeof RoomBookingStatus)[keyof typeof RoomBookingStatus]
+
+
+export const RestaurantOrderStatus = {
+  PENDING: 'PENDING',
+  CONFIRMED: 'CONFIRMED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type RestaurantOrderStatus = (typeof RestaurantOrderStatus)[keyof typeof RestaurantOrderStatus]
+
+
 export const TicketBookingStatus = {
   PENDING: 'PENDING',
   CONFIRMED: 'CONFIRMED',
@@ -209,6 +227,15 @@ export const TicketBookingStatus = {
 } as const
 
 export type TicketBookingStatus = (typeof TicketBookingStatus)[keyof typeof TicketBookingStatus]
+
+
+export const UnifiedBookingStatus = {
+  PENDING: 'PENDING',
+  CONFIRMED: 'CONFIRMED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type UnifiedBookingStatus = (typeof UnifiedBookingStatus)[keyof typeof UnifiedBookingStatus]
 
 
 export const FacilityType = {

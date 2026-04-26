@@ -17,6 +17,9 @@ import { OpeningModule } from './modules/opening/opening.module';
 import { MomentsModule } from './modules/moments/moments.module';
 import { SupportModule } from './modules/support/support.module';
 import { RestaurantModule } from './modules/restaurant/restaurant.module';
+import { RoomModule } from './modules/room/room.module';
+import { CheckoutModule } from './modules/checkout/checkout.module';
+import { AnalyticsModule } from './modules/analytics/analytics.module';
 
 @Module({
   imports: [
@@ -38,6 +41,9 @@ import { RestaurantModule } from './modules/restaurant/restaurant.module';
     MomentsModule,
     SupportModule,
     RestaurantModule,
+    RoomModule,
+    CheckoutModule,
+    AnalyticsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

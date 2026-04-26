@@ -625,6 +625,14 @@ export type RestaurantOrderDetailsUncheckedUpdateManyWithoutOrderNestedInput = {
   deleteMany?: Prisma.RestaurantOrderDetailsScalarWhereInput | Prisma.RestaurantOrderDetailsScalarWhereInput[]
 }
 
+export type IntFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 export type RestaurantOrderDetailsCreateWithoutItemInput = {
   id?: string
   quantity: number
