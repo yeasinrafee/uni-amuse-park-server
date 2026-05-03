@@ -20,6 +20,7 @@ import { RestaurantModule } from './modules/restaurant/restaurant.module';
 import { RoomModule } from './modules/room/room.module';
 import { CheckoutModule } from './modules/checkout/checkout.module';
 import { AnalyticsModule } from './modules/analytics/analytics.module';
+import { ReportModule } from './modules/report/report.module';
 
 @Module({
   imports: [
@@ -44,6 +45,7 @@ import { AnalyticsModule } from './modules/analytics/analytics.module';
     RoomModule,
     CheckoutModule,
     AnalyticsModule,
+    ReportModule,
   ],
   controllers: [AppController],
   providers: [AppService],
