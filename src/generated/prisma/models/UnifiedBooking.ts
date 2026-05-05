@@ -47,6 +47,7 @@ export type UnifiedBookingMinAggregateOutputType = {
   customerPhone: string | null
   userId: string | null
   staffId: string | null
+  transactionId: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -62,6 +63,7 @@ export type UnifiedBookingMaxAggregateOutputType = {
   customerPhone: string | null
   userId: string | null
   staffId: string | null
+  transactionId: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -77,6 +79,7 @@ export type UnifiedBookingCountAggregateOutputType = {
   customerPhone: number
   userId: number
   staffId: number
+  transactionId: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -104,6 +107,7 @@ export type UnifiedBookingMinAggregateInputType = {
   customerPhone?: true
   userId?: true
   staffId?: true
+  transactionId?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -119,6 +123,7 @@ export type UnifiedBookingMaxAggregateInputType = {
   customerPhone?: true
   userId?: true
   staffId?: true
+  transactionId?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -134,6 +139,7 @@ export type UnifiedBookingCountAggregateInputType = {
   customerPhone?: true
   userId?: true
   staffId?: true
+  transactionId?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -236,6 +242,7 @@ export type UnifiedBookingGroupByOutputType = {
   customerPhone: string | null
   userId: string | null
   staffId: string
+  transactionId: string | null
   createdAt: Date
   updatedAt: Date
   _count: UnifiedBookingCountAggregateOutputType | null
@@ -274,6 +281,7 @@ export type UnifiedBookingWhereInput = {
   customerPhone?: Prisma.StringNullableFilter<"UnifiedBooking"> | string | null
   userId?: Prisma.StringNullableFilter<"UnifiedBooking"> | string | null
   staffId?: Prisma.StringFilter<"UnifiedBooking"> | string
+  transactionId?: Prisma.StringNullableFilter<"UnifiedBooking"> | string | null
   createdAt?: Prisma.DateTimeFilter<"UnifiedBooking"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"UnifiedBooking"> | Date | string
   ticketBookings?: Prisma.TicketBookingListRelationFilter
@@ -292,6 +300,7 @@ export type UnifiedBookingOrderByWithRelationInput = {
   customerPhone?: Prisma.SortOrderInput | Prisma.SortOrder
   userId?: Prisma.SortOrderInput | Prisma.SortOrder
   staffId?: Prisma.SortOrder
+  transactionId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   ticketBookings?: Prisma.TicketBookingOrderByRelationAggregateInput
@@ -301,6 +310,7 @@ export type UnifiedBookingOrderByWithRelationInput = {
 
 export type UnifiedBookingWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  transactionId?: string
   AND?: Prisma.UnifiedBookingWhereInput | Prisma.UnifiedBookingWhereInput[]
   OR?: Prisma.UnifiedBookingWhereInput[]
   NOT?: Prisma.UnifiedBookingWhereInput | Prisma.UnifiedBookingWhereInput[]
@@ -318,7 +328,7 @@ export type UnifiedBookingWhereUniqueInput = Prisma.AtLeast<{
   ticketBookings?: Prisma.TicketBookingListRelationFilter
   restaurantOrders?: Prisma.RestaurantOrderListRelationFilter
   roomBookings?: Prisma.RoomBookingListRelationFilter
-}, "id">
+}, "id" | "transactionId">
 
 export type UnifiedBookingOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -331,6 +341,7 @@ export type UnifiedBookingOrderByWithAggregationInput = {
   customerPhone?: Prisma.SortOrderInput | Prisma.SortOrder
   userId?: Prisma.SortOrderInput | Prisma.SortOrder
   staffId?: Prisma.SortOrder
+  transactionId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.UnifiedBookingCountOrderByAggregateInput
@@ -354,6 +365,7 @@ export type UnifiedBookingScalarWhereWithAggregatesInput = {
   customerPhone?: Prisma.StringNullableWithAggregatesFilter<"UnifiedBooking"> | string | null
   userId?: Prisma.StringNullableWithAggregatesFilter<"UnifiedBooking"> | string | null
   staffId?: Prisma.StringWithAggregatesFilter<"UnifiedBooking"> | string
+  transactionId?: Prisma.StringNullableWithAggregatesFilter<"UnifiedBooking"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"UnifiedBooking"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"UnifiedBooking"> | Date | string
 }
@@ -369,6 +381,7 @@ export type UnifiedBookingCreateInput = {
   customerPhone?: string | null
   userId?: string | null
   staffId: string
+  transactionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   ticketBookings?: Prisma.TicketBookingCreateNestedManyWithoutUnifiedBookingInput
@@ -387,6 +400,7 @@ export type UnifiedBookingUncheckedCreateInput = {
   customerPhone?: string | null
   userId?: string | null
   staffId: string
+  transactionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   ticketBookings?: Prisma.TicketBookingUncheckedCreateNestedManyWithoutUnifiedBookingInput
@@ -405,6 +419,7 @@ export type UnifiedBookingUpdateInput = {
   customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   staffId?: Prisma.StringFieldUpdateOperationsInput | string
+  transactionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ticketBookings?: Prisma.TicketBookingUpdateManyWithoutUnifiedBookingNestedInput
@@ -423,6 +438,7 @@ export type UnifiedBookingUncheckedUpdateInput = {
   customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   staffId?: Prisma.StringFieldUpdateOperationsInput | string
+  transactionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ticketBookings?: Prisma.TicketBookingUncheckedUpdateManyWithoutUnifiedBookingNestedInput
@@ -441,6 +457,7 @@ export type UnifiedBookingCreateManyInput = {
   customerPhone?: string | null
   userId?: string | null
   staffId: string
+  transactionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -456,6 +473,7 @@ export type UnifiedBookingUpdateManyMutationInput = {
   customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   staffId?: Prisma.StringFieldUpdateOperationsInput | string
+  transactionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -471,6 +489,7 @@ export type UnifiedBookingUncheckedUpdateManyInput = {
   customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   staffId?: Prisma.StringFieldUpdateOperationsInput | string
+  transactionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -491,6 +510,7 @@ export type UnifiedBookingCountOrderByAggregateInput = {
   customerPhone?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   staffId?: Prisma.SortOrder
+  transactionId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -511,6 +531,7 @@ export type UnifiedBookingMaxOrderByAggregateInput = {
   customerPhone?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   staffId?: Prisma.SortOrder
+  transactionId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -526,6 +547,7 @@ export type UnifiedBookingMinOrderByAggregateInput = {
   customerPhone?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   staffId?: Prisma.SortOrder
+  transactionId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -598,6 +620,7 @@ export type UnifiedBookingCreateWithoutRoomBookingsInput = {
   customerPhone?: string | null
   userId?: string | null
   staffId: string
+  transactionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   ticketBookings?: Prisma.TicketBookingCreateNestedManyWithoutUnifiedBookingInput
@@ -615,6 +638,7 @@ export type UnifiedBookingUncheckedCreateWithoutRoomBookingsInput = {
   customerPhone?: string | null
   userId?: string | null
   staffId: string
+  transactionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   ticketBookings?: Prisma.TicketBookingUncheckedCreateNestedManyWithoutUnifiedBookingInput
@@ -648,6 +672,7 @@ export type UnifiedBookingUpdateWithoutRoomBookingsInput = {
   customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   staffId?: Prisma.StringFieldUpdateOperationsInput | string
+  transactionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ticketBookings?: Prisma.TicketBookingUpdateManyWithoutUnifiedBookingNestedInput
@@ -665,6 +690,7 @@ export type UnifiedBookingUncheckedUpdateWithoutRoomBookingsInput = {
   customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   staffId?: Prisma.StringFieldUpdateOperationsInput | string
+  transactionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ticketBookings?: Prisma.TicketBookingUncheckedUpdateManyWithoutUnifiedBookingNestedInput
@@ -682,6 +708,7 @@ export type UnifiedBookingCreateWithoutRestaurantOrdersInput = {
   customerPhone?: string | null
   userId?: string | null
   staffId: string
+  transactionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   ticketBookings?: Prisma.TicketBookingCreateNestedManyWithoutUnifiedBookingInput
@@ -699,6 +726,7 @@ export type UnifiedBookingUncheckedCreateWithoutRestaurantOrdersInput = {
   customerPhone?: string | null
   userId?: string | null
   staffId: string
+  transactionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   ticketBookings?: Prisma.TicketBookingUncheckedCreateNestedManyWithoutUnifiedBookingInput
@@ -732,6 +760,7 @@ export type UnifiedBookingUpdateWithoutRestaurantOrdersInput = {
   customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   staffId?: Prisma.StringFieldUpdateOperationsInput | string
+  transactionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ticketBookings?: Prisma.TicketBookingUpdateManyWithoutUnifiedBookingNestedInput
@@ -749,6 +778,7 @@ export type UnifiedBookingUncheckedUpdateWithoutRestaurantOrdersInput = {
   customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   staffId?: Prisma.StringFieldUpdateOperationsInput | string
+  transactionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ticketBookings?: Prisma.TicketBookingUncheckedUpdateManyWithoutUnifiedBookingNestedInput
@@ -766,6 +796,7 @@ export type UnifiedBookingCreateWithoutTicketBookingsInput = {
   customerPhone?: string | null
   userId?: string | null
   staffId: string
+  transactionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   restaurantOrders?: Prisma.RestaurantOrderCreateNestedManyWithoutUnifiedBookingInput
@@ -783,6 +814,7 @@ export type UnifiedBookingUncheckedCreateWithoutTicketBookingsInput = {
   customerPhone?: string | null
   userId?: string | null
   staffId: string
+  transactionId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   restaurantOrders?: Prisma.RestaurantOrderUncheckedCreateNestedManyWithoutUnifiedBookingInput
@@ -816,6 +848,7 @@ export type UnifiedBookingUpdateWithoutTicketBookingsInput = {
   customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   staffId?: Prisma.StringFieldUpdateOperationsInput | string
+  transactionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   restaurantOrders?: Prisma.RestaurantOrderUpdateManyWithoutUnifiedBookingNestedInput
@@ -833,6 +866,7 @@ export type UnifiedBookingUncheckedUpdateWithoutTicketBookingsInput = {
   customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   staffId?: Prisma.StringFieldUpdateOperationsInput | string
+  transactionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   restaurantOrders?: Prisma.RestaurantOrderUncheckedUpdateManyWithoutUnifiedBookingNestedInput
@@ -899,6 +933,7 @@ export type UnifiedBookingSelect<ExtArgs extends runtime.Types.Extensions.Intern
   customerPhone?: boolean
   userId?: boolean
   staffId?: boolean
+  transactionId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   ticketBookings?: boolean | Prisma.UnifiedBooking$ticketBookingsArgs<ExtArgs>
@@ -918,6 +953,7 @@ export type UnifiedBookingSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   customerPhone?: boolean
   userId?: boolean
   staffId?: boolean
+  transactionId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["unifiedBooking"]>
@@ -933,6 +969,7 @@ export type UnifiedBookingSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   customerPhone?: boolean
   userId?: boolean
   staffId?: boolean
+  transactionId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["unifiedBooking"]>
@@ -948,11 +985,12 @@ export type UnifiedBookingSelectScalar = {
   customerPhone?: boolean
   userId?: boolean
   staffId?: boolean
+  transactionId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type UnifiedBookingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "totalAmount" | "paidAmount" | "paymentStatus" | "status" | "paymentMethod" | "customerName" | "customerPhone" | "userId" | "staffId" | "createdAt" | "updatedAt", ExtArgs["result"]["unifiedBooking"]>
+export type UnifiedBookingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "totalAmount" | "paidAmount" | "paymentStatus" | "status" | "paymentMethod" | "customerName" | "customerPhone" | "userId" | "staffId" | "transactionId" | "createdAt" | "updatedAt", ExtArgs["result"]["unifiedBooking"]>
 export type UnifiedBookingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   ticketBookings?: boolean | Prisma.UnifiedBooking$ticketBookingsArgs<ExtArgs>
   restaurantOrders?: boolean | Prisma.UnifiedBooking$restaurantOrdersArgs<ExtArgs>
@@ -980,6 +1018,7 @@ export type $UnifiedBookingPayload<ExtArgs extends runtime.Types.Extensions.Inte
     customerPhone: string | null
     userId: string | null
     staffId: string
+    transactionId: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["unifiedBooking"]>
@@ -1418,6 +1457,7 @@ export interface UnifiedBookingFieldRefs {
   readonly customerPhone: Prisma.FieldRef<"UnifiedBooking", 'String'>
   readonly userId: Prisma.FieldRef<"UnifiedBooking", 'String'>
   readonly staffId: Prisma.FieldRef<"UnifiedBooking", 'String'>
+  readonly transactionId: Prisma.FieldRef<"UnifiedBooking", 'String'>
   readonly createdAt: Prisma.FieldRef<"UnifiedBooking", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"UnifiedBooking", 'DateTime'>
 }

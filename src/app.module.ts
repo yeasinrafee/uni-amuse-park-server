@@ -21,6 +21,7 @@ import { RoomModule } from './modules/room/room.module';
 import { CheckoutModule } from './modules/checkout/checkout.module';
 import { AnalyticsModule } from './modules/analytics/analytics.module';
 import { ReportModule } from './modules/report/report.module';
+import { PaymentModule } from './modules/payment/payment.module';
 
 @Module({
   imports: [
@@ -46,6 +47,7 @@ import { ReportModule } from './modules/report/report.module';
     CheckoutModule,
     AnalyticsModule,
     ReportModule,
+    PaymentModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -2,6 +2,7 @@ import {
   Injectable,
   NotFoundException,
   BadRequestException,
+  Logger,
 } from '@nestjs/common';
 import { PrismaService } from 'src/common/prisma/prisma.service';
 import { CreateUnifiedBookingDto } from './dto/unified-booking.dto';
@@ -15,6 +16,7 @@ import {
 
 @Injectable()
 export class CheckoutService {
+  private readonly logger = new Logger(CheckoutService.name);
   constructor(private prisma: PrismaService) {}
 
   async createUnifiedBooking(dto: CreateUnifiedBookingDto) {
@@ -33,6 +35,7 @@ export class CheckoutService {
       paidAmount = 0,
     } = dto;
 
+    this.logger.log(`Creating unified booking for ${customerName}. PaidAmount in DTO: ${paidAmount}`);
     return this.prisma.$transaction(async (tx) => {
       // 1. Create UnifiedBooking placeholder first to get an ID
       // We'll update the totalAmount and paidAmount later
@@ -222,9 +225,12 @@ export class CheckoutService {
 
       // 5. Update UnifiedBooking with correct totals and distribute paidAmount
       let remainingPaid = paidAmount;
-      const finalPaymentStatus = remainingPaid >= calculatedTotalAmount && calculatedTotalAmount > 0 
+      const paymentPercentage = calculatedTotalAmount > 0 ? (remainingPaid / calculatedTotalAmount) * 100 : 0;
+      const finalPaymentStatus = paymentPercentage >= 100 
         ? PaymentStatus.PAID 
-        : (remainingPaid > 0 ? PaymentStatus.PARTIALLY_PAID : PaymentStatus.UNPAID);
+        : (paymentPercentage >= 25 
+            ? PaymentStatus.PARTIALLY_PAID 
+            : (paymentPercentage > 0 ? (PaymentStatus as any).DUE : PaymentStatus.UNPAID));
 
       const finalStatus = remainingPaid >= calculatedTotalAmount && calculatedTotalAmount > 0
         ? UnifiedBookingStatus.CONFIRMED
@@ -331,7 +337,7 @@ export class CheckoutService {
     });
   }
 
-  async processPayment(id: string, amount: number, method?: PaymentMethod) {
+  async processPayment(id: string, amount: number, method?: PaymentMethod, transactionId?: string) {
     return this.prisma.$transaction(async (tx) => {
       const unified = await tx.unifiedBooking.findUnique({
         where: { id },
@@ -344,12 +350,29 @@ export class CheckoutService {
 
       if (!unified) throw new NotFoundException('Booking not found');
 
-      const newPaidAmount = unified.paidAmount + amount;
-      if (newPaidAmount > unified.totalAmount) {
-        throw new BadRequestException(`Amount exceeds total balance. Remaining: ${unified.totalAmount - unified.paidAmount}`);
+      // If this transaction ID was already processed, skip
+      if (transactionId && unified.transactionId === transactionId) {
+        this.logger.log(`Transaction ${transactionId} already processed for booking ${id}. Skipping.`);
+        return unified;
       }
 
-      const newStatus = newPaidAmount >= unified.totalAmount ? PaymentStatus.PAID : PaymentStatus.PARTIALLY_PAID;
+      // Prevent duplicate processing if already paid
+      if (unified.paymentStatus === PaymentStatus.PAID) {
+        return unified;
+      }
+
+      const remainingBalance = Number((unified.totalAmount - unified.paidAmount).toFixed(2));
+      const amountToApply = Math.min(amount, remainingBalance);
+      const newPaidAmount = Number((unified.paidAmount + amountToApply).toFixed(2));
+
+      const paymentPercentage = (newPaidAmount / unified.totalAmount) * 100;
+      const newStatus = paymentPercentage >= 100 
+        ? PaymentStatus.PAID 
+        : (paymentPercentage >= 25 
+            ? PaymentStatus.PARTIALLY_PAID 
+            : (paymentPercentage > 0 ? (PaymentStatus as any).DUE : PaymentStatus.UNPAID));
+
+      this.logger.log(`Processing payment for ${id}: Total=${unified.totalAmount}, AlreadyPaid=${unified.paidAmount}, NewPayment=${amount}, Applied=${amountToApply}, ResultPaid=${newPaidAmount}, Status=${newStatus}`);
 
       // Update Unified Booking
       const updatedUnified = await tx.unifiedBooking.update({
@@ -357,6 +380,8 @@ export class CheckoutService {
         data: {
           paidAmount: newPaidAmount,
           paymentStatus: newStatus,
+          transactionId: transactionId,
+          status: UnifiedBookingStatus.CONFIRMED, // Mark as confirmed when payment is received
           ...(method && { paymentMethod: method })
         }
       });

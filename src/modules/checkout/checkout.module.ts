@@ -6,5 +6,6 @@ import { PrismaService } from 'src/common/prisma/prisma.service';
 @Module({
   controllers: [CheckoutController],
   providers: [CheckoutService, PrismaService],
+  exports: [CheckoutService],
 })
 export class CheckoutModule {}

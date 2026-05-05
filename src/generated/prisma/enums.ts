@@ -64,6 +64,7 @@ export type RequestStatus = (typeof RequestStatus)[keyof typeof RequestStatus]
 
 export const PaymentStatus = {
   UNPAID: 'UNPAID',
+  DUE: 'DUE',
   PARTIALLY_PAID: 'PARTIALLY_PAID',
   PAID: 'PAID'
 } as const

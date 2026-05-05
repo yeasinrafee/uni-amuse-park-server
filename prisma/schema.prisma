@@ -62,6 +62,7 @@ enum RequestStatus {
 
 enum PaymentStatus {
   UNPAID
+  DUE
   PARTIALLY_PAID
   PAID
 }
@@ -323,6 +324,7 @@ model UnifiedBooking {
   customerPhone    String?
   userId           String?
   staffId          String
+  transactionId    String?              @unique
   ticketBookings   TicketBooking[]
   restaurantOrders RestaurantOrder[]
   roomBookings     RoomBooking[]

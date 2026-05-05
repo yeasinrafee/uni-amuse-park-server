@@ -246,6 +246,7 @@ export const UnifiedBookingScalarFieldEnum = {
   customerPhone: 'customerPhone',
   userId: 'userId',
   staffId: 'staffId',
+  transactionId: 'transactionId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
