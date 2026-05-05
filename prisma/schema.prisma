@@ -19,6 +19,7 @@ model User {
   createdAt      DateTime        @default(now())
   updatedAt      DateTime        @updatedAt
   ticketBookings TicketBooking[]
+  roomBookings   RoomBooking[]
 }
 
 enum AttendanceDayStatus {
@@ -164,7 +165,7 @@ model Room {
   price              Float
   roomTypeId         String
   roomType           RoomType            @relation(fields: [roomTypeId], references: [id])
-  bookings           RoomBookingDetail[]
+  bookings           RoomBooking[]
   createdAt          DateTime            @default(now())
   updatedAt          DateTime            @updatedAt
   deletedAt          DateTime?
@@ -180,14 +181,10 @@ model RoomType {
   deletedAt   DateTime?
 }
 
-model Reference {
-  id        String    @id @default(uuid())
-  name      String
-  phone     String
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
-  // roomBookings RoomBooking[]
+enum RoomBookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
 }
 
 model RoomBooking {
@@ -197,53 +194,32 @@ model RoomBooking {
   customerEmail                String?
   customerIdentificationType   IdentificationType
   customerIdentificationNumber String
-  discountType                 DiscountType?
-  baseAmount                   Float
-  discountAmount               Float?
+
+  // User linking for user-end bookings
+  userId                       String?
+  user                         User?               @relation(fields: [userId], references: [userId])
+
+  // Payment fields
+  paymentMethod                PaymentMethod?
   totalAmount                  Float
   paidAmount                   Float               @default(0)
-  configCheckInTime            String
-  configCheckOutTime           String
-  invoices                     RoomBookingDetail[]
+  paymentStatus                PaymentStatus       @default(UNPAID)
+
+  // Booking details
+  roomId                       String
+  room                         Room                @relation(fields: [roomId], references: [id])
+  checkinDate                  DateTime
+  checkoutDate                 DateTime
+  
+  status                       RoomBookingStatus   @default(PENDING)
+
+  unifiedBookingId             String?
+  unifiedBooking               UnifiedBooking?     @relation(fields: [unifiedBookingId], references: [id])
+
   createdAt                    DateTime            @default(now())
   updatedAt                    DateTime            @updatedAt
-}
 
-model RoomBookingRequest {
-  id            String        @id @default(uuid())
-  customerId    String
-  customerName  String
-  customerPhone String
-  customerEmail String?
-  checkinDate   DateTime
-  checkoutDate  DateTime
-  status        RequestStatus @default(PENDING)
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
-}
-
-model RoomBookingDetail {
-  id            String       @id @default(uuid())
-  roomBookingId String?
-  checkinDate   DateTime
-  checkoutDate  DateTime?
-  estimateDays  Int
-  roomId        String
-  price         Float
-  booking       RoomBooking? @relation(fields: [roomBookingId], references: [id])
-  room          Room         @relation(fields: [roomId], references: [id])
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
-
-  @@index([roomId, checkinDate, checkoutDate], name: "room_booking_detail_roomid_checkin_checkout_idx")
-}
-
-model HotelConfig {
-  id           String   @id @default(uuid())
-  checkInTime  String
-  checkOutTime String
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  @@index([roomId, checkinDate, checkoutDate], name: "room_booking_roomid_checkin_checkout_idx")
 }
 
 model Category {
@@ -269,19 +245,30 @@ model Item {
 }
 
 model RestaurantOrder {
-  id             String                   @id @default(uuid())
-  discountAmount Float?
-  discountType   DiscountType
-  customerName   String?
-  customerPhone  String?
-  paymentStatus  PaymentStatus            @default(UNPAID)
-  baseAmount     Float
-  totalAmount    Float
-  paidAmount     Float                    @default(0)
-  staffId        String
-  orderItems     RestaurantOrderDetails[]
-  createdAt      DateTime                 @default(now())
-  updatedAt      DateTime                 @updatedAt
+  id               String                   @id @default(uuid())
+  discountAmount   Float?
+  discountType     DiscountType
+  customerName     String?
+  customerPhone    String?
+  paymentStatus    PaymentStatus            @default(UNPAID)
+  status           RestaurantOrderStatus    @default(PENDING)
+  baseAmount       Float
+  totalAmount      Float
+  paidAmount       Float                    @default(0)
+  staffId          String
+  orderItems       RestaurantOrderDetails[]
+  
+  unifiedBookingId String?
+  unifiedBooking   UnifiedBooking?          @relation(fields: [unifiedBookingId], references: [id])
+
+  createdAt        DateTime                 @default(now())
+  updatedAt        DateTime                 @updatedAt
+}
+
+enum RestaurantOrderStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
 }
 
 model RestaurantOrderDetails {
@@ -293,6 +280,8 @@ model RestaurantOrderDetails {
   itemName          String
   discountAmount    Float?
   discountType      DiscountType
+  subTotal          Float           @default(0)
+  total             Float           @default(0)
   item              Item            @relation(fields: [itemId], references: [id])
   order             RestaurantOrder @relation(fields: [restaurantOrderId], references: [id])
   createdAt         DateTime        @default(now())
@@ -306,17 +295,45 @@ enum TicketBookingStatus {
 }
 
 model TicketBooking {
-  id             String                @id @default(uuid())
-  totalAmount    Float
-  customerName   String?
-  customerPhone  String?
-  staffId        String
-  userId         String?
-  user           User?                 @relation(fields: [userId], references: [userId])
-  status         TicketBookingStatus   @default(PENDING)
-  bookingDetails TicketBookingDetail[]
-  createdAt      DateTime              @default(now())
-  updatedAt      DateTime              @updatedAt
+  id               String                @id @default(uuid())
+  totalAmount      Float
+  customerName     String?
+  customerPhone    String?
+  staffId          String
+  userId           String?
+  user             User?                 @relation(fields: [userId], references: [userId])
+  status           TicketBookingStatus   @default(PENDING)
+  bookingDetails   TicketBookingDetail[]
+
+  unifiedBookingId String?
+  unifiedBooking   UnifiedBooking?       @relation(fields: [unifiedBookingId], references: [id])
+
+  createdAt        DateTime              @default(now())
+  updatedAt        DateTime              @updatedAt
+}
+
+model UnifiedBooking {
+  id               String               @id @default(uuid())
+  totalAmount      Float
+  paidAmount       Float                @default(0)
+  paymentStatus    PaymentStatus        @default(UNPAID)
+  status           UnifiedBookingStatus @default(PENDING)
+  paymentMethod    PaymentMethod?
+  customerName     String?
+  customerPhone    String?
+  userId           String?
+  staffId          String
+  ticketBookings   TicketBooking[]
+  restaurantOrders RestaurantOrder[]
+  roomBookings     RoomBooking[]
+  createdAt        DateTime             @default(now())
+  updatedAt        DateTime             @updatedAt
+}
+
+enum UnifiedBookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
 }
 
 model TicketBookingDetail {

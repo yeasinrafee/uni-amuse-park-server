@@ -16,6 +16,11 @@ import { UsefulLinkModule } from './modules/useful-links/useful-link.module';
 import { OpeningModule } from './modules/opening/opening.module';
 import { MomentsModule } from './modules/moments/moments.module';
 import { SupportModule } from './modules/support/support.module';
+import { RestaurantModule } from './modules/restaurant/restaurant.module';
+import { RoomModule } from './modules/room/room.module';
+import { CheckoutModule } from './modules/checkout/checkout.module';
+import { AnalyticsModule } from './modules/analytics/analytics.module';
+import { ReportModule } from './modules/report/report.module';
 
 @Module({
   imports: [
@@ -36,6 +41,11 @@ import { SupportModule } from './modules/support/support.module';
     OpeningModule,
     MomentsModule,
     SupportModule,
+    RestaurantModule,
+    RoomModule,
+    CheckoutModule,
+    AnalyticsModule,
+    ReportModule,
   ],
   controllers: [AppController],
   providers: [AppService],

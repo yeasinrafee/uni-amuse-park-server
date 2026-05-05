@@ -55,30 +55,10 @@ export type Room = Prisma.RoomModel
  */
 export type RoomType = Prisma.RoomTypeModel
 /**
- * Model Reference
- * 
- */
-export type Reference = Prisma.ReferenceModel
-/**
  * Model RoomBooking
  * 
  */
 export type RoomBooking = Prisma.RoomBookingModel
-/**
- * Model RoomBookingRequest
- * 
- */
-export type RoomBookingRequest = Prisma.RoomBookingRequestModel
-/**
- * Model RoomBookingDetail
- * 
- */
-export type RoomBookingDetail = Prisma.RoomBookingDetailModel
-/**
- * Model HotelConfig
- * 
- */
-export type HotelConfig = Prisma.HotelConfigModel
 /**
  * Model Category
  * 
@@ -104,6 +84,11 @@ export type RestaurantOrderDetails = Prisma.RestaurantOrderDetailsModel
  * 
  */
 export type TicketBooking = Prisma.TicketBookingModel
+/**
+ * Model UnifiedBooking
+ * 
+ */
+export type UnifiedBooking = Prisma.UnifiedBookingModel
 /**
  * Model TicketBookingDetail
  * 

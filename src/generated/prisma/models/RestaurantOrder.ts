@@ -47,10 +47,12 @@ export type RestaurantOrderMinAggregateOutputType = {
   customerName: string | null
   customerPhone: string | null
   paymentStatus: $Enums.PaymentStatus | null
+  status: $Enums.RestaurantOrderStatus | null
   baseAmount: number | null
   totalAmount: number | null
   paidAmount: number | null
   staffId: string | null
+  unifiedBookingId: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -62,10 +64,12 @@ export type RestaurantOrderMaxAggregateOutputType = {
   customerName: string | null
   customerPhone: string | null
   paymentStatus: $Enums.PaymentStatus | null
+  status: $Enums.RestaurantOrderStatus | null
   baseAmount: number | null
   totalAmount: number | null
   paidAmount: number | null
   staffId: string | null
+  unifiedBookingId: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -77,10 +81,12 @@ export type RestaurantOrderCountAggregateOutputType = {
   customerName: number
   customerPhone: number
   paymentStatus: number
+  status: number
   baseAmount: number
   totalAmount: number
   paidAmount: number
   staffId: number
+  unifiedBookingId: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -108,10 +114,12 @@ export type RestaurantOrderMinAggregateInputType = {
   customerName?: true
   customerPhone?: true
   paymentStatus?: true
+  status?: true
   baseAmount?: true
   totalAmount?: true
   paidAmount?: true
   staffId?: true
+  unifiedBookingId?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -123,10 +131,12 @@ export type RestaurantOrderMaxAggregateInputType = {
   customerName?: true
   customerPhone?: true
   paymentStatus?: true
+  status?: true
   baseAmount?: true
   totalAmount?: true
   paidAmount?: true
   staffId?: true
+  unifiedBookingId?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -138,10 +148,12 @@ export type RestaurantOrderCountAggregateInputType = {
   customerName?: true
   customerPhone?: true
   paymentStatus?: true
+  status?: true
   baseAmount?: true
   totalAmount?: true
   paidAmount?: true
   staffId?: true
+  unifiedBookingId?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -240,10 +252,12 @@ export type RestaurantOrderGroupByOutputType = {
   customerName: string | null
   customerPhone: string | null
   paymentStatus: $Enums.PaymentStatus
+  status: $Enums.RestaurantOrderStatus
   baseAmount: number
   totalAmount: number
   paidAmount: number
   staffId: string
+  unifiedBookingId: string | null
   createdAt: Date
   updatedAt: Date
   _count: RestaurantOrderCountAggregateOutputType | null
@@ -278,13 +292,16 @@ export type RestaurantOrderWhereInput = {
   customerName?: Prisma.StringNullableFilter<"RestaurantOrder"> | string | null
   customerPhone?: Prisma.StringNullableFilter<"RestaurantOrder"> | string | null
   paymentStatus?: Prisma.EnumPaymentStatusFilter<"RestaurantOrder"> | $Enums.PaymentStatus
+  status?: Prisma.EnumRestaurantOrderStatusFilter<"RestaurantOrder"> | $Enums.RestaurantOrderStatus
   baseAmount?: Prisma.FloatFilter<"RestaurantOrder"> | number
   totalAmount?: Prisma.FloatFilter<"RestaurantOrder"> | number
   paidAmount?: Prisma.FloatFilter<"RestaurantOrder"> | number
   staffId?: Prisma.StringFilter<"RestaurantOrder"> | string
+  unifiedBookingId?: Prisma.StringNullableFilter<"RestaurantOrder"> | string | null
   createdAt?: Prisma.DateTimeFilter<"RestaurantOrder"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"RestaurantOrder"> | Date | string
   orderItems?: Prisma.RestaurantOrderDetailsListRelationFilter
+  unifiedBooking?: Prisma.XOR<Prisma.UnifiedBookingNullableScalarRelationFilter, Prisma.UnifiedBookingWhereInput> | null
 }
 
 export type RestaurantOrderOrderByWithRelationInput = {
@@ -294,13 +311,16 @@ export type RestaurantOrderOrderByWithRelationInput = {
   customerName?: Prisma.SortOrderInput | Prisma.SortOrder
   customerPhone?: Prisma.SortOrderInput | Prisma.SortOrder
   paymentStatus?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   baseAmount?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
   paidAmount?: Prisma.SortOrder
   staffId?: Prisma.SortOrder
+  unifiedBookingId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   orderItems?: Prisma.RestaurantOrderDetailsOrderByRelationAggregateInput
+  unifiedBooking?: Prisma.UnifiedBookingOrderByWithRelationInput
 }
 
 export type RestaurantOrderWhereUniqueInput = Prisma.AtLeast<{
@@ -313,13 +333,16 @@ export type RestaurantOrderWhereUniqueInput = Prisma.AtLeast<{
   customerName?: Prisma.StringNullableFilter<"RestaurantOrder"> | string | null
   customerPhone?: Prisma.StringNullableFilter<"RestaurantOrder"> | string | null
   paymentStatus?: Prisma.EnumPaymentStatusFilter<"RestaurantOrder"> | $Enums.PaymentStatus
+  status?: Prisma.EnumRestaurantOrderStatusFilter<"RestaurantOrder"> | $Enums.RestaurantOrderStatus
   baseAmount?: Prisma.FloatFilter<"RestaurantOrder"> | number
   totalAmount?: Prisma.FloatFilter<"RestaurantOrder"> | number
   paidAmount?: Prisma.FloatFilter<"RestaurantOrder"> | number
   staffId?: Prisma.StringFilter<"RestaurantOrder"> | string
+  unifiedBookingId?: Prisma.StringNullableFilter<"RestaurantOrder"> | string | null
   createdAt?: Prisma.DateTimeFilter<"RestaurantOrder"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"RestaurantOrder"> | Date | string
   orderItems?: Prisma.RestaurantOrderDetailsListRelationFilter
+  unifiedBooking?: Prisma.XOR<Prisma.UnifiedBookingNullableScalarRelationFilter, Prisma.UnifiedBookingWhereInput> | null
 }, "id">
 
 export type RestaurantOrderOrderByWithAggregationInput = {
@@ -329,10 +352,12 @@ export type RestaurantOrderOrderByWithAggregationInput = {
   customerName?: Prisma.SortOrderInput | Prisma.SortOrder
   customerPhone?: Prisma.SortOrderInput | Prisma.SortOrder
   paymentStatus?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   baseAmount?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
   paidAmount?: Prisma.SortOrder
   staffId?: Prisma.SortOrder
+  unifiedBookingId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.RestaurantOrderCountOrderByAggregateInput
@@ -352,10 +377,12 @@ export type RestaurantOrderScalarWhereWithAggregatesInput = {
   customerName?: Prisma.StringNullableWithAggregatesFilter<"RestaurantOrder"> | string | null
   customerPhone?: Prisma.StringNullableWithAggregatesFilter<"RestaurantOrder"> | string | null
   paymentStatus?: Prisma.EnumPaymentStatusWithAggregatesFilter<"RestaurantOrder"> | $Enums.PaymentStatus
+  status?: Prisma.EnumRestaurantOrderStatusWithAggregatesFilter<"RestaurantOrder"> | $Enums.RestaurantOrderStatus
   baseAmount?: Prisma.FloatWithAggregatesFilter<"RestaurantOrder"> | number
   totalAmount?: Prisma.FloatWithAggregatesFilter<"RestaurantOrder"> | number
   paidAmount?: Prisma.FloatWithAggregatesFilter<"RestaurantOrder"> | number
   staffId?: Prisma.StringWithAggregatesFilter<"RestaurantOrder"> | string
+  unifiedBookingId?: Prisma.StringNullableWithAggregatesFilter<"RestaurantOrder"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"RestaurantOrder"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"RestaurantOrder"> | Date | string
 }
@@ -367,6 +394,7 @@ export type RestaurantOrderCreateInput = {
   customerName?: string | null
   customerPhone?: string | null
   paymentStatus?: $Enums.PaymentStatus
+  status?: $Enums.RestaurantOrderStatus
   baseAmount: number
   totalAmount: number
   paidAmount?: number
@@ -374,6 +402,7 @@ export type RestaurantOrderCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   orderItems?: Prisma.RestaurantOrderDetailsCreateNestedManyWithoutOrderInput
+  unifiedBooking?: Prisma.UnifiedBookingCreateNestedOneWithoutRestaurantOrdersInput
 }
 
 export type RestaurantOrderUncheckedCreateInput = {
@@ -383,10 +412,12 @@ export type RestaurantOrderUncheckedCreateInput = {
   customerName?: string | null
   customerPhone?: string | null
   paymentStatus?: $Enums.PaymentStatus
+  status?: $Enums.RestaurantOrderStatus
   baseAmount: number
   totalAmount: number
   paidAmount?: number
   staffId: string
+  unifiedBookingId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   orderItems?: Prisma.RestaurantOrderDetailsUncheckedCreateNestedManyWithoutOrderInput
@@ -399,6 +430,7 @@ export type RestaurantOrderUpdateInput = {
   customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  status?: Prisma.EnumRestaurantOrderStatusFieldUpdateOperationsInput | $Enums.RestaurantOrderStatus
   baseAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   paidAmount?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -406,6 +438,7 @@ export type RestaurantOrderUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderItems?: Prisma.RestaurantOrderDetailsUpdateManyWithoutOrderNestedInput
+  unifiedBooking?: Prisma.UnifiedBookingUpdateOneWithoutRestaurantOrdersNestedInput
 }
 
 export type RestaurantOrderUncheckedUpdateInput = {
@@ -415,10 +448,12 @@ export type RestaurantOrderUncheckedUpdateInput = {
   customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  status?: Prisma.EnumRestaurantOrderStatusFieldUpdateOperationsInput | $Enums.RestaurantOrderStatus
   baseAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   paidAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   staffId?: Prisma.StringFieldUpdateOperationsInput | string
+  unifiedBookingId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderItems?: Prisma.RestaurantOrderDetailsUncheckedUpdateManyWithoutOrderNestedInput
@@ -431,10 +466,12 @@ export type RestaurantOrderCreateManyInput = {
   customerName?: string | null
   customerPhone?: string | null
   paymentStatus?: $Enums.PaymentStatus
+  status?: $Enums.RestaurantOrderStatus
   baseAmount: number
   totalAmount: number
   paidAmount?: number
   staffId: string
+  unifiedBookingId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -446,6 +483,7 @@ export type RestaurantOrderUpdateManyMutationInput = {
   customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  status?: Prisma.EnumRestaurantOrderStatusFieldUpdateOperationsInput | $Enums.RestaurantOrderStatus
   baseAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   paidAmount?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -461,10 +499,12 @@ export type RestaurantOrderUncheckedUpdateManyInput = {
   customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  status?: Prisma.EnumRestaurantOrderStatusFieldUpdateOperationsInput | $Enums.RestaurantOrderStatus
   baseAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   paidAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   staffId?: Prisma.StringFieldUpdateOperationsInput | string
+  unifiedBookingId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -476,10 +516,12 @@ export type RestaurantOrderCountOrderByAggregateInput = {
   customerName?: Prisma.SortOrder
   customerPhone?: Prisma.SortOrder
   paymentStatus?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   baseAmount?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
   paidAmount?: Prisma.SortOrder
   staffId?: Prisma.SortOrder
+  unifiedBookingId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -498,10 +540,12 @@ export type RestaurantOrderMaxOrderByAggregateInput = {
   customerName?: Prisma.SortOrder
   customerPhone?: Prisma.SortOrder
   paymentStatus?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   baseAmount?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
   paidAmount?: Prisma.SortOrder
   staffId?: Prisma.SortOrder
+  unifiedBookingId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -513,10 +557,12 @@ export type RestaurantOrderMinOrderByAggregateInput = {
   customerName?: Prisma.SortOrder
   customerPhone?: Prisma.SortOrder
   paymentStatus?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   baseAmount?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
   paidAmount?: Prisma.SortOrder
   staffId?: Prisma.SortOrder
+  unifiedBookingId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -533,12 +579,30 @@ export type RestaurantOrderScalarRelationFilter = {
   isNot?: Prisma.RestaurantOrderWhereInput
 }
 
+export type RestaurantOrderListRelationFilter = {
+  every?: Prisma.RestaurantOrderWhereInput
+  some?: Prisma.RestaurantOrderWhereInput
+  none?: Prisma.RestaurantOrderWhereInput
+}
+
+export type RestaurantOrderOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
+}
+
+export type NullableFloatFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 export type EnumDiscountTypeFieldUpdateOperationsInput = {
   set?: $Enums.DiscountType
 }
 
-export type EnumPaymentStatusFieldUpdateOperationsInput = {
-  set?: $Enums.PaymentStatus
+export type EnumRestaurantOrderStatusFieldUpdateOperationsInput = {
+  set?: $Enums.RestaurantOrderStatus
 }
 
 export type RestaurantOrderCreateNestedOneWithoutOrderItemsInput = {
@@ -555,6 +619,48 @@ export type RestaurantOrderUpdateOneRequiredWithoutOrderItemsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.RestaurantOrderUpdateToOneWithWhereWithoutOrderItemsInput, Prisma.RestaurantOrderUpdateWithoutOrderItemsInput>, Prisma.RestaurantOrderUncheckedUpdateWithoutOrderItemsInput>
 }
 
+export type RestaurantOrderCreateNestedManyWithoutUnifiedBookingInput = {
+  create?: Prisma.XOR<Prisma.RestaurantOrderCreateWithoutUnifiedBookingInput, Prisma.RestaurantOrderUncheckedCreateWithoutUnifiedBookingInput> | Prisma.RestaurantOrderCreateWithoutUnifiedBookingInput[] | Prisma.RestaurantOrderUncheckedCreateWithoutUnifiedBookingInput[]
+  connectOrCreate?: Prisma.RestaurantOrderCreateOrConnectWithoutUnifiedBookingInput | Prisma.RestaurantOrderCreateOrConnectWithoutUnifiedBookingInput[]
+  createMany?: Prisma.RestaurantOrderCreateManyUnifiedBookingInputEnvelope
+  connect?: Prisma.RestaurantOrderWhereUniqueInput | Prisma.RestaurantOrderWhereUniqueInput[]
+}
+
+export type RestaurantOrderUncheckedCreateNestedManyWithoutUnifiedBookingInput = {
+  create?: Prisma.XOR<Prisma.RestaurantOrderCreateWithoutUnifiedBookingInput, Prisma.RestaurantOrderUncheckedCreateWithoutUnifiedBookingInput> | Prisma.RestaurantOrderCreateWithoutUnifiedBookingInput[] | Prisma.RestaurantOrderUncheckedCreateWithoutUnifiedBookingInput[]
+  connectOrCreate?: Prisma.RestaurantOrderCreateOrConnectWithoutUnifiedBookingInput | Prisma.RestaurantOrderCreateOrConnectWithoutUnifiedBookingInput[]
+  createMany?: Prisma.RestaurantOrderCreateManyUnifiedBookingInputEnvelope
+  connect?: Prisma.RestaurantOrderWhereUniqueInput | Prisma.RestaurantOrderWhereUniqueInput[]
+}
+
+export type RestaurantOrderUpdateManyWithoutUnifiedBookingNestedInput = {
+  create?: Prisma.XOR<Prisma.RestaurantOrderCreateWithoutUnifiedBookingInput, Prisma.RestaurantOrderUncheckedCreateWithoutUnifiedBookingInput> | Prisma.RestaurantOrderCreateWithoutUnifiedBookingInput[] | Prisma.RestaurantOrderUncheckedCreateWithoutUnifiedBookingInput[]
+  connectOrCreate?: Prisma.RestaurantOrderCreateOrConnectWithoutUnifiedBookingInput | Prisma.RestaurantOrderCreateOrConnectWithoutUnifiedBookingInput[]
+  upsert?: Prisma.RestaurantOrderUpsertWithWhereUniqueWithoutUnifiedBookingInput | Prisma.RestaurantOrderUpsertWithWhereUniqueWithoutUnifiedBookingInput[]
+  createMany?: Prisma.RestaurantOrderCreateManyUnifiedBookingInputEnvelope
+  set?: Prisma.RestaurantOrderWhereUniqueInput | Prisma.RestaurantOrderWhereUniqueInput[]
+  disconnect?: Prisma.RestaurantOrderWhereUniqueInput | Prisma.RestaurantOrderWhereUniqueInput[]
+  delete?: Prisma.RestaurantOrderWhereUniqueInput | Prisma.RestaurantOrderWhereUniqueInput[]
+  connect?: Prisma.RestaurantOrderWhereUniqueInput | Prisma.RestaurantOrderWhereUniqueInput[]
+  update?: Prisma.RestaurantOrderUpdateWithWhereUniqueWithoutUnifiedBookingInput | Prisma.RestaurantOrderUpdateWithWhereUniqueWithoutUnifiedBookingInput[]
+  updateMany?: Prisma.RestaurantOrderUpdateManyWithWhereWithoutUnifiedBookingInput | Prisma.RestaurantOrderUpdateManyWithWhereWithoutUnifiedBookingInput[]
+  deleteMany?: Prisma.RestaurantOrderScalarWhereInput | Prisma.RestaurantOrderScalarWhereInput[]
+}
+
+export type RestaurantOrderUncheckedUpdateManyWithoutUnifiedBookingNestedInput = {
+  create?: Prisma.XOR<Prisma.RestaurantOrderCreateWithoutUnifiedBookingInput, Prisma.RestaurantOrderUncheckedCreateWithoutUnifiedBookingInput> | Prisma.RestaurantOrderCreateWithoutUnifiedBookingInput[] | Prisma.RestaurantOrderUncheckedCreateWithoutUnifiedBookingInput[]
+  connectOrCreate?: Prisma.RestaurantOrderCreateOrConnectWithoutUnifiedBookingInput | Prisma.RestaurantOrderCreateOrConnectWithoutUnifiedBookingInput[]
+  upsert?: Prisma.RestaurantOrderUpsertWithWhereUniqueWithoutUnifiedBookingInput | Prisma.RestaurantOrderUpsertWithWhereUniqueWithoutUnifiedBookingInput[]
+  createMany?: Prisma.RestaurantOrderCreateManyUnifiedBookingInputEnvelope
+  set?: Prisma.RestaurantOrderWhereUniqueInput | Prisma.RestaurantOrderWhereUniqueInput[]
+  disconnect?: Prisma.RestaurantOrderWhereUniqueInput | Prisma.RestaurantOrderWhereUniqueInput[]
+  delete?: Prisma.RestaurantOrderWhereUniqueInput | Prisma.RestaurantOrderWhereUniqueInput[]
+  connect?: Prisma.RestaurantOrderWhereUniqueInput | Prisma.RestaurantOrderWhereUniqueInput[]
+  update?: Prisma.RestaurantOrderUpdateWithWhereUniqueWithoutUnifiedBookingInput | Prisma.RestaurantOrderUpdateWithWhereUniqueWithoutUnifiedBookingInput[]
+  updateMany?: Prisma.RestaurantOrderUpdateManyWithWhereWithoutUnifiedBookingInput | Prisma.RestaurantOrderUpdateManyWithWhereWithoutUnifiedBookingInput[]
+  deleteMany?: Prisma.RestaurantOrderScalarWhereInput | Prisma.RestaurantOrderScalarWhereInput[]
+}
+
 export type RestaurantOrderCreateWithoutOrderItemsInput = {
   id?: string
   discountAmount?: number | null
@@ -562,12 +668,14 @@ export type RestaurantOrderCreateWithoutOrderItemsInput = {
   customerName?: string | null
   customerPhone?: string | null
   paymentStatus?: $Enums.PaymentStatus
+  status?: $Enums.RestaurantOrderStatus
   baseAmount: number
   totalAmount: number
   paidAmount?: number
   staffId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  unifiedBooking?: Prisma.UnifiedBookingCreateNestedOneWithoutRestaurantOrdersInput
 }
 
 export type RestaurantOrderUncheckedCreateWithoutOrderItemsInput = {
@@ -577,10 +685,12 @@ export type RestaurantOrderUncheckedCreateWithoutOrderItemsInput = {
   customerName?: string | null
   customerPhone?: string | null
   paymentStatus?: $Enums.PaymentStatus
+  status?: $Enums.RestaurantOrderStatus
   baseAmount: number
   totalAmount: number
   paidAmount?: number
   staffId: string
+  unifiedBookingId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -608,12 +718,14 @@ export type RestaurantOrderUpdateWithoutOrderItemsInput = {
   customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  status?: Prisma.EnumRestaurantOrderStatusFieldUpdateOperationsInput | $Enums.RestaurantOrderStatus
   baseAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   paidAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   staffId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  unifiedBooking?: Prisma.UnifiedBookingUpdateOneWithoutRestaurantOrdersNestedInput
 }
 
 export type RestaurantOrderUncheckedUpdateWithoutOrderItemsInput = {
@@ -623,6 +735,154 @@ export type RestaurantOrderUncheckedUpdateWithoutOrderItemsInput = {
   customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  status?: Prisma.EnumRestaurantOrderStatusFieldUpdateOperationsInput | $Enums.RestaurantOrderStatus
+  baseAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  paidAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  staffId?: Prisma.StringFieldUpdateOperationsInput | string
+  unifiedBookingId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type RestaurantOrderCreateWithoutUnifiedBookingInput = {
+  id?: string
+  discountAmount?: number | null
+  discountType: $Enums.DiscountType
+  customerName?: string | null
+  customerPhone?: string | null
+  paymentStatus?: $Enums.PaymentStatus
+  status?: $Enums.RestaurantOrderStatus
+  baseAmount: number
+  totalAmount: number
+  paidAmount?: number
+  staffId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  orderItems?: Prisma.RestaurantOrderDetailsCreateNestedManyWithoutOrderInput
+}
+
+export type RestaurantOrderUncheckedCreateWithoutUnifiedBookingInput = {
+  id?: string
+  discountAmount?: number | null
+  discountType: $Enums.DiscountType
+  customerName?: string | null
+  customerPhone?: string | null
+  paymentStatus?: $Enums.PaymentStatus
+  status?: $Enums.RestaurantOrderStatus
+  baseAmount: number
+  totalAmount: number
+  paidAmount?: number
+  staffId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  orderItems?: Prisma.RestaurantOrderDetailsUncheckedCreateNestedManyWithoutOrderInput
+}
+
+export type RestaurantOrderCreateOrConnectWithoutUnifiedBookingInput = {
+  where: Prisma.RestaurantOrderWhereUniqueInput
+  create: Prisma.XOR<Prisma.RestaurantOrderCreateWithoutUnifiedBookingInput, Prisma.RestaurantOrderUncheckedCreateWithoutUnifiedBookingInput>
+}
+
+export type RestaurantOrderCreateManyUnifiedBookingInputEnvelope = {
+  data: Prisma.RestaurantOrderCreateManyUnifiedBookingInput | Prisma.RestaurantOrderCreateManyUnifiedBookingInput[]
+  skipDuplicates?: boolean
+}
+
+export type RestaurantOrderUpsertWithWhereUniqueWithoutUnifiedBookingInput = {
+  where: Prisma.RestaurantOrderWhereUniqueInput
+  update: Prisma.XOR<Prisma.RestaurantOrderUpdateWithoutUnifiedBookingInput, Prisma.RestaurantOrderUncheckedUpdateWithoutUnifiedBookingInput>
+  create: Prisma.XOR<Prisma.RestaurantOrderCreateWithoutUnifiedBookingInput, Prisma.RestaurantOrderUncheckedCreateWithoutUnifiedBookingInput>
+}
+
+export type RestaurantOrderUpdateWithWhereUniqueWithoutUnifiedBookingInput = {
+  where: Prisma.RestaurantOrderWhereUniqueInput
+  data: Prisma.XOR<Prisma.RestaurantOrderUpdateWithoutUnifiedBookingInput, Prisma.RestaurantOrderUncheckedUpdateWithoutUnifiedBookingInput>
+}
+
+export type RestaurantOrderUpdateManyWithWhereWithoutUnifiedBookingInput = {
+  where: Prisma.RestaurantOrderScalarWhereInput
+  data: Prisma.XOR<Prisma.RestaurantOrderUpdateManyMutationInput, Prisma.RestaurantOrderUncheckedUpdateManyWithoutUnifiedBookingInput>
+}
+
+export type RestaurantOrderScalarWhereInput = {
+  AND?: Prisma.RestaurantOrderScalarWhereInput | Prisma.RestaurantOrderScalarWhereInput[]
+  OR?: Prisma.RestaurantOrderScalarWhereInput[]
+  NOT?: Prisma.RestaurantOrderScalarWhereInput | Prisma.RestaurantOrderScalarWhereInput[]
+  id?: Prisma.StringFilter<"RestaurantOrder"> | string
+  discountAmount?: Prisma.FloatNullableFilter<"RestaurantOrder"> | number | null
+  discountType?: Prisma.EnumDiscountTypeFilter<"RestaurantOrder"> | $Enums.DiscountType
+  customerName?: Prisma.StringNullableFilter<"RestaurantOrder"> | string | null
+  customerPhone?: Prisma.StringNullableFilter<"RestaurantOrder"> | string | null
+  paymentStatus?: Prisma.EnumPaymentStatusFilter<"RestaurantOrder"> | $Enums.PaymentStatus
+  status?: Prisma.EnumRestaurantOrderStatusFilter<"RestaurantOrder"> | $Enums.RestaurantOrderStatus
+  baseAmount?: Prisma.FloatFilter<"RestaurantOrder"> | number
+  totalAmount?: Prisma.FloatFilter<"RestaurantOrder"> | number
+  paidAmount?: Prisma.FloatFilter<"RestaurantOrder"> | number
+  staffId?: Prisma.StringFilter<"RestaurantOrder"> | string
+  unifiedBookingId?: Prisma.StringNullableFilter<"RestaurantOrder"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"RestaurantOrder"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"RestaurantOrder"> | Date | string
+}
+
+export type RestaurantOrderCreateManyUnifiedBookingInput = {
+  id?: string
+  discountAmount?: number | null
+  discountType: $Enums.DiscountType
+  customerName?: string | null
+  customerPhone?: string | null
+  paymentStatus?: $Enums.PaymentStatus
+  status?: $Enums.RestaurantOrderStatus
+  baseAmount: number
+  totalAmount: number
+  paidAmount?: number
+  staffId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type RestaurantOrderUpdateWithoutUnifiedBookingInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  status?: Prisma.EnumRestaurantOrderStatusFieldUpdateOperationsInput | $Enums.RestaurantOrderStatus
+  baseAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  paidAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  staffId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  orderItems?: Prisma.RestaurantOrderDetailsUpdateManyWithoutOrderNestedInput
+}
+
+export type RestaurantOrderUncheckedUpdateWithoutUnifiedBookingInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  status?: Prisma.EnumRestaurantOrderStatusFieldUpdateOperationsInput | $Enums.RestaurantOrderStatus
+  baseAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  paidAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  staffId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  orderItems?: Prisma.RestaurantOrderDetailsUncheckedUpdateManyWithoutOrderNestedInput
+}
+
+export type RestaurantOrderUncheckedUpdateManyWithoutUnifiedBookingInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  discountAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  discountType?: Prisma.EnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  status?: Prisma.EnumRestaurantOrderStatusFieldUpdateOperationsInput | $Enums.RestaurantOrderStatus
   baseAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   paidAmount?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -669,13 +929,16 @@ export type RestaurantOrderSelect<ExtArgs extends runtime.Types.Extensions.Inter
   customerName?: boolean
   customerPhone?: boolean
   paymentStatus?: boolean
+  status?: boolean
   baseAmount?: boolean
   totalAmount?: boolean
   paidAmount?: boolean
   staffId?: boolean
+  unifiedBookingId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   orderItems?: boolean | Prisma.RestaurantOrder$orderItemsArgs<ExtArgs>
+  unifiedBooking?: boolean | Prisma.RestaurantOrder$unifiedBookingArgs<ExtArgs>
   _count?: boolean | Prisma.RestaurantOrderCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["restaurantOrder"]>
 
@@ -686,12 +949,15 @@ export type RestaurantOrderSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   customerName?: boolean
   customerPhone?: boolean
   paymentStatus?: boolean
+  status?: boolean
   baseAmount?: boolean
   totalAmount?: boolean
   paidAmount?: boolean
   staffId?: boolean
+  unifiedBookingId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  unifiedBooking?: boolean | Prisma.RestaurantOrder$unifiedBookingArgs<ExtArgs>
 }, ExtArgs["result"]["restaurantOrder"]>
 
 export type RestaurantOrderSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -701,12 +967,15 @@ export type RestaurantOrderSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   customerName?: boolean
   customerPhone?: boolean
   paymentStatus?: boolean
+  status?: boolean
   baseAmount?: boolean
   totalAmount?: boolean
   paidAmount?: boolean
   staffId?: boolean
+  unifiedBookingId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  unifiedBooking?: boolean | Prisma.RestaurantOrder$unifiedBookingArgs<ExtArgs>
 }, ExtArgs["result"]["restaurantOrder"]>
 
 export type RestaurantOrderSelectScalar = {
@@ -716,26 +985,34 @@ export type RestaurantOrderSelectScalar = {
   customerName?: boolean
   customerPhone?: boolean
   paymentStatus?: boolean
+  status?: boolean
   baseAmount?: boolean
   totalAmount?: boolean
   paidAmount?: boolean
   staffId?: boolean
+  unifiedBookingId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type RestaurantOrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "discountAmount" | "discountType" | "customerName" | "customerPhone" | "paymentStatus" | "baseAmount" | "totalAmount" | "paidAmount" | "staffId" | "createdAt" | "updatedAt", ExtArgs["result"]["restaurantOrder"]>
+export type RestaurantOrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "discountAmount" | "discountType" | "customerName" | "customerPhone" | "paymentStatus" | "status" | "baseAmount" | "totalAmount" | "paidAmount" | "staffId" | "unifiedBookingId" | "createdAt" | "updatedAt", ExtArgs["result"]["restaurantOrder"]>
 export type RestaurantOrderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   orderItems?: boolean | Prisma.RestaurantOrder$orderItemsArgs<ExtArgs>
+  unifiedBooking?: boolean | Prisma.RestaurantOrder$unifiedBookingArgs<ExtArgs>
   _count?: boolean | Prisma.RestaurantOrderCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type RestaurantOrderIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type RestaurantOrderIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type RestaurantOrderIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  unifiedBooking?: boolean | Prisma.RestaurantOrder$unifiedBookingArgs<ExtArgs>
+}
+export type RestaurantOrderIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  unifiedBooking?: boolean | Prisma.RestaurantOrder$unifiedBookingArgs<ExtArgs>
+}
 
 export type $RestaurantOrderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "RestaurantOrder"
   objects: {
     orderItems: Prisma.$RestaurantOrderDetailsPayload<ExtArgs>[]
+    unifiedBooking: Prisma.$UnifiedBookingPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -744,10 +1021,12 @@ export type $RestaurantOrderPayload<ExtArgs extends runtime.Types.Extensions.Int
     customerName: string | null
     customerPhone: string | null
     paymentStatus: $Enums.PaymentStatus
+    status: $Enums.RestaurantOrderStatus
     baseAmount: number
     totalAmount: number
     paidAmount: number
     staffId: string
+    unifiedBookingId: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["restaurantOrder"]>
@@ -1145,6 +1424,7 @@ readonly fields: RestaurantOrderFieldRefs;
 export interface Prisma__RestaurantOrderClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   orderItems<T extends Prisma.RestaurantOrder$orderItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RestaurantOrder$orderItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RestaurantOrderDetailsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  unifiedBooking<T extends Prisma.RestaurantOrder$unifiedBookingArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RestaurantOrder$unifiedBookingArgs<ExtArgs>>): Prisma.Prisma__UnifiedBookingClient<runtime.Types.Result.GetResult<Prisma.$UnifiedBookingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1180,10 +1460,12 @@ export interface RestaurantOrderFieldRefs {
   readonly customerName: Prisma.FieldRef<"RestaurantOrder", 'String'>
   readonly customerPhone: Prisma.FieldRef<"RestaurantOrder", 'String'>
   readonly paymentStatus: Prisma.FieldRef<"RestaurantOrder", 'PaymentStatus'>
+  readonly status: Prisma.FieldRef<"RestaurantOrder", 'RestaurantOrderStatus'>
   readonly baseAmount: Prisma.FieldRef<"RestaurantOrder", 'Float'>
   readonly totalAmount: Prisma.FieldRef<"RestaurantOrder", 'Float'>
   readonly paidAmount: Prisma.FieldRef<"RestaurantOrder", 'Float'>
   readonly staffId: Prisma.FieldRef<"RestaurantOrder", 'String'>
+  readonly unifiedBookingId: Prisma.FieldRef<"RestaurantOrder", 'String'>
   readonly createdAt: Prisma.FieldRef<"RestaurantOrder", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"RestaurantOrder", 'DateTime'>
 }
@@ -1440,6 +1722,10 @@ export type RestaurantOrderCreateManyAndReturnArgs<ExtArgs extends runtime.Types
    */
   data: Prisma.RestaurantOrderCreateManyInput | Prisma.RestaurantOrderCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RestaurantOrderIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1510,6 +1796,10 @@ export type RestaurantOrderUpdateManyAndReturnArgs<ExtArgs extends runtime.Types
    * Limit how many RestaurantOrders to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RestaurantOrderIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1600,6 +1890,25 @@ export type RestaurantOrder$orderItemsArgs<ExtArgs extends runtime.Types.Extensi
   take?: number
   skip?: number
   distinct?: Prisma.RestaurantOrderDetailsScalarFieldEnum | Prisma.RestaurantOrderDetailsScalarFieldEnum[]
+}
+
+/**
+ * RestaurantOrder.unifiedBooking
+ */
+export type RestaurantOrder$unifiedBookingArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UnifiedBooking
+   */
+  select?: Prisma.UnifiedBookingSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UnifiedBooking
+   */
+  omit?: Prisma.UnifiedBookingOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UnifiedBookingInclude<ExtArgs> | null
+  where?: Prisma.UnifiedBookingWhereInput
 }
 
 /**
