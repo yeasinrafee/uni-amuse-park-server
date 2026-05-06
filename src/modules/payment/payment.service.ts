@@ -33,7 +33,10 @@ export class PaymentService {
    * Returns the gateway redirect URL (GatewayPageURL) to send the user to.
    */
   async initPayment(dto: InitPaymentDto): Promise<{ gatewayUrl: string; sessionKey: string }> {
-    const transactionId = `TXN_${Date.now()}_${dto.bookingId}`;
+    const now = new Date();
+    const dateStr = now.toISOString().slice(2, 10).replace(/-/g, ''); // e.g., 240506
+    const randomStr = Math.random().toString(36).substring(2, 8).toUpperCase();
+    const transactionId = `TXN-${dateStr}-${randomStr}`;
 
     // Build the form body for SSLCommerz init API
     const postBody: Record<string, string> = {
