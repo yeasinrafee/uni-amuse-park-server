@@ -7,11 +7,12 @@ export class ReportService {
   constructor(private prisma: PrismaService) {}
 
   private getDateRange(query: ReportQueryDto) {
-    const startDate = new Date(query.startDate);
-    const endDate = new Date(query.endDate);
+    const [startYear, startMonth, startDay] = query.startDate.split('T')[0].split('-').map(Number);
+    const [endYear, endMonth, endDay] = query.endDate.split('T')[0].split('-').map(Number);
 
-    // Set endDate to the end of the day (23:59:59.999)
-    endDate.setHours(23, 59, 59, 999);
+    // Create dates strictly in the server's local timezone from midnight to midnight
+    const startDate = new Date(startYear, startMonth - 1, startDay, 0, 0, 0, 0);
+    const endDate = new Date(endYear, endMonth - 1, endDay, 23, 59, 59, 999);
 
     if (startDate > endDate) {
       throw new BadRequestException('startDate cannot be after endDate');
@@ -43,6 +44,9 @@ export class ReportService {
         },
         user: {
           select: { userId: true, name: true, email: true, phone: true },
+        },
+        unifiedBooking: {
+          select: { transactionId: true, paymentStatus: true },
         },
       },
       orderBy: { createdAt: 'desc' },
@@ -137,6 +141,32 @@ export class ReportService {
     const avgTicketsPerBooking =
       totalBookings > 0 ? totalTicketsSold / totalBookings : 0;
 
+    // 8. Map Transactions
+    const transactions = bookings.map((b) => {
+      const items = b.bookingDetails
+        .map((d) => `${d.ticketType?.name || 'Ticket'} x ${d.quantity}`)
+        .join(', ');
+      const paymentStatus = b.unifiedBooking?.paymentStatus || 'PAID';
+      const isPaid = paymentStatus === 'PAID';
+      const paidAmount = isPaid ? b.totalAmount : 0;
+      const dueAmount = isPaid ? 0 : b.totalAmount;
+
+      return {
+        date: b.createdAt.toISOString().split('T')[0],
+        trx_id: b.unifiedBooking?.transactionId || 'N/A',
+        customerName: b.customerName || b.user?.name || 'N/A',
+        cusNumber: b.customerPhone || b.user?.phone || 'N/A',
+        email: b.user?.email || 'N/A',
+        department: 'Ticket Booking',
+        item: items,
+        paymentStatus,
+        due: dueAmount,
+        partialPayment: 0,
+        paid: paidAmount,
+        amount: b.totalAmount,
+      };
+    });
+
     return {
       reportType: 'TICKET',
       period: { startDate: query.startDate, endDate: query.endDate },
@@ -151,6 +181,7 @@ export class ReportService {
       revenueByStatus,
       ticketTypeBreakdown,
       dailyBreakdown,
+      transactions,
     };
   }
 
@@ -174,6 +205,9 @@ export class ReportService {
       include: {
         orderItems: {
           include: { item: true },
+        },
+        unifiedBooking: {
+          select: { transactionId: true },
         },
       },
       orderBy: { createdAt: 'desc' },
@@ -299,6 +333,35 @@ export class ReportService {
     const avgItemsPerOrder =
       totalOrders > 0 ? totalItemsSold / totalOrders : 0;
 
+    // 10. Map Transactions
+    const transactions = orders.map((o) => {
+      const items = o.orderItems
+        .map((oi) => `${oi.itemName} x ${oi.quantity}`)
+        .join(', ');
+      let partialPayment = 0;
+      let paid = 0;
+      if (o.paidAmount > 0 && o.paidAmount < o.totalAmount) {
+        partialPayment = o.paidAmount;
+      } else if (o.paidAmount >= o.totalAmount && o.totalAmount > 0) {
+        paid = o.paidAmount;
+      }
+
+      return {
+        date: o.createdAt.toISOString().split('T')[0],
+        trx_id: o.unifiedBooking?.transactionId || 'N/A',
+        customerName: o.customerName || 'N/A',
+        cusNumber: o.customerPhone || 'N/A',
+        email: 'N/A',
+        department: 'Restaurant',
+        item: items,
+        paymentStatus: o.paymentStatus,
+        due: Math.max(0, o.totalAmount - o.paidAmount),
+        partialPayment,
+        paid,
+        amount: o.totalAmount,
+      };
+    });
+
     return {
       reportType: 'RESTAURANT',
       period: { startDate: query.startDate, endDate: query.endDate },
@@ -319,6 +382,7 @@ export class ReportService {
       revenueByPaymentStatus,
       topSellingItems,
       dailyBreakdown,
+      transactions,
     };
   }
 
@@ -345,6 +409,9 @@ export class ReportService {
         },
         user: {
           select: { userId: true, name: true, email: true, phone: true },
+        },
+        unifiedBooking: {
+          select: { transactionId: true },
         },
       },
       orderBy: { createdAt: 'desc' },
@@ -522,6 +589,33 @@ export class ReportService {
     const avgRevenuePerBooking =
       totalBookings > 0 ? totalRevenue / totalBookings : 0;
 
+    // 13. Map Transactions
+    const transactions = bookings.map((b) => {
+      const items = `${b.room?.roomType?.name || 'Room'} (${b.room?.roomNumber || 'Unknown'})`;
+      let partialPayment = 0;
+      let paid = 0;
+      if (b.paidAmount > 0 && b.paidAmount < b.totalAmount) {
+        partialPayment = b.paidAmount;
+      } else if (b.paidAmount >= b.totalAmount && b.totalAmount > 0) {
+        paid = b.paidAmount;
+      }
+
+      return {
+        date: b.createdAt.toISOString().split('T')[0],
+        trx_id: b.unifiedBooking?.transactionId || 'N/A',
+        customerName: b.customerName || b.user?.name || 'N/A',
+        cusNumber: b.customerPhone || b.user?.phone || 'N/A',
+        email: b.customerEmail || b.user?.email || 'N/A',
+        department: 'Hotel Room',
+        item: items,
+        paymentStatus: b.paymentStatus,
+        due: Math.max(0, b.totalAmount - b.paidAmount),
+        partialPayment,
+        paid,
+        amount: b.totalAmount,
+      };
+    });
+
     return {
       reportType: 'ROOM',
       period: { startDate: query.startDate, endDate: query.endDate },
@@ -542,6 +636,7 @@ export class ReportService {
       roomTypeBreakdown,
       roomBreakdown,
       dailyBreakdown,
+      transactions,
     };
   }
 
@@ -599,6 +694,12 @@ export class ReportService {
           (roomDailyMap.get(date)?.revenue || 0),
       }));
 
+    const combinedTransactions = [
+      ...ticketReport.transactions,
+      ...restaurantReport.transactions,
+      ...roomReport.transactions,
+    ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
     return {
       reportType: 'OVERVIEW',
       period: { startDate: query.startDate, endDate: query.endDate },
@@ -619,6 +720,7 @@ export class ReportService {
         roomBookings: roomReport.summary.totalBookings,
       },
       combinedDailyBreakdown,
+      transactions: combinedTransactions,
       ticketSummary: ticketReport.summary,
       restaurantSummary: restaurantReport.summary,
       roomSummary: roomReport.summary,
