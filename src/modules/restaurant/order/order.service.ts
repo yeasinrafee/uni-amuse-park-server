@@ -100,7 +100,7 @@ export class OrderService {
     if (paidAmount >= totalAmount && totalAmount > 0) {
       paymentStatus = PaymentStatus.PAID;
     } else if (paidAmount > 0) {
-      paymentStatus = PaymentStatus.PARTIALLY_PAID;
+      paymentStatus = PaymentStatus.DUE;
     }
 
     return this.prisma.restaurantOrder.create({
@@ -167,7 +167,7 @@ export class OrderService {
       if (newPaidAmount >= order.totalAmount && order.totalAmount > 0) {
         paymentStatus = PaymentStatus.PAID;
       } else if (newPaidAmount > 0) {
-        paymentStatus = PaymentStatus.PARTIALLY_PAID;
+        paymentStatus = PaymentStatus.DUE;
       } else {
         paymentStatus = PaymentStatus.UNPAID;
       }

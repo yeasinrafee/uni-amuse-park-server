@@ -39,7 +39,7 @@ export class RoomBookingService {
     if (paidAmount >= bookingData.totalAmount && bookingData.totalAmount > 0) {
       paymentStatus = 'PAID';
     } else if (paidAmount > 0) {
-      paymentStatus = 'PARTIALLY_PAID';
+      paymentStatus = 'DUE';
     }
 
     return this.prisma.roomBooking.create({
@@ -98,7 +98,7 @@ export class RoomBookingService {
       if (newPaidAmount >= booking.totalAmount && booking.totalAmount > 0) {
         paymentStatus = 'PAID';
       } else if (newPaidAmount > 0) {
-        paymentStatus = 'PARTIALLY_PAID';
+        paymentStatus = 'DUE';
       } else {
         paymentStatus = 'UNPAID';
       }

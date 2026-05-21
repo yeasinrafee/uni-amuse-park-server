@@ -22,22 +22,6 @@ model User {
   roomBookings   RoomBooking[]
 }
 
-enum AttendanceDayStatus {
-  PRESENT
-  ABSENT
-  LATE
-  EARLY_LEAVE
-  WEEKEND
-  OT_DAY
-  PAID_LEAVE
-  INCOMPLETE
-}
-
-enum AttendanceSource {
-  BIOMETRIC
-  MANUAL
-}
-
 enum PaymentMethod {
   CASH
   BANK
@@ -46,35 +30,10 @@ enum PaymentMethod {
   ROCKET
 }
 
-enum SourceType {
-  ROOM
-  HALL
-  RESTAURANT
-  TICKET
-}
-
-enum RequestStatus {
-  PENDING
-  APPROVED
-  REJECTED
-  CANCELLED
-}
-
 enum PaymentStatus {
   UNPAID
   DUE
-  PARTIALLY_PAID
   PAID
-}
-
-enum AdvancePaymentStatus {
-  PENDING
-  ADJUSTED
-}
-
-enum PayrollStatus {
-  NOT_PROCESSED
-  PROCESSED
 }
 
 enum DiscountType {
@@ -90,73 +49,9 @@ enum IdentificationType {
   DRIVING_LICENCE
 }
 
-enum SharePaymentType {
-  EXPENSE
-  REVENUE
-}
-
-enum EmployeeType {
-  FULL_TIME
-  PART_TIME
-  CONTRACT
-}
-
-enum EmploymentStatus {
-  ACTIVE
-  INACTIVE
-  TERMINATED
-}
-
-enum BloodGroup {
-  A_POSITIVE
-  A_NEGATIVE
-  B_POSITIVE
-  B_NEGATIVE
-  AB_POSITIVE
-  AB_NEGATIVE
-  O_POSITIVE
-  O_NEGATIVE
-}
-
-enum MaritalStatus {
-  SINGLE
-  MARRIED
-  DIVORCED
-  WIDOWED
-}
-
-enum Education {
-  SSC
-  BELOW_SSC
-  HSC
-  UNIVERSITY
-  ABOVE_UNIVERSITY
-  OTHER
-}
-
-enum WeekDay {
-  MON
-  TUE
-  WED
-  THU
-  FRI
-  SAT
-  SUN
-}
-
-enum DepartmentName {
-  FINANCE_AND_ACCOUNTS
-  HR
-  ROOM_MANAGEMENT
-  HALL_MANAGEMENT
-}
-
 enum Role {
-  SUPER_ADMIN
   ADMIN
-  STAFF
   CUSTOMER
-  SHAREHOLDER
 }
 
 model Room {
@@ -349,121 +244,14 @@ model TicketBookingDetail {
 }
 
 model TicketType {
-  id             String                @id @default(uuid())
+  id             String   @id @default(uuid())
   name           String
   image          String?
   price          Float
   bookingDetails TicketBookingDetail[]
-  createdAt      DateTime              @default(now())
-  updatedAt      DateTime              @updatedAt
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
   deletedAt      DateTime?
 }
 
-// website section model 
-enum FacilityType {
-  ROOM
-  HALL
-  RIDE
-  RESTAURANT
-  THEATER
-  PARK
-}
 
-model Banner {
-  id               String   @id @default(uuid())
-  title            String
-  subTitle         String
-  shortDescription String
-  image            String?
-  isActive         Boolean  @default(false)
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
-}
-
-model Facilities {
-  id          String       @id @default(uuid())
-  title       String
-  subTitle    String?
-  description String[]
-  features    String[]
-  image       String?
-  footerTitle String?
-  type        FacilityType
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-}
-
-model Opening {
-  id        String   @id @default(uuid())
-  day       String
-  startTime DateTime
-  endTime   DateTime
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model Team {
-  id          String   @id @default(uuid())
-  image       String?
-  name        String
-  designation String
-  order       Int      @unique
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}
-
-model Gallery {
-  id        String   @id @default(uuid())
-  image     String?
-  order     Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model HomeGallery {
-  id        String   @id @default(uuid())
-  image     String?
-  order     Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model Moments {
-  id        String   @id @default(uuid())
-  image     String?
-  order     Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model LogoContact {
-  id          String   @id
-  headerLogo  String?
-  footerLogo  String?
-  email       String?
-  phone       String?
-  location    String?
-  socialLinks Json?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}
-
-model UsefulLink {
-  id                String   @id @default("USEFUL_LINK")
-  privacyPolicy     String?  @db.Text
-  termsAndCondition String?  @db.Text
-  disclaimer        String?  @db.Text
-  faq               Json?
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-}
-
-model Support {
-  id        String   @id @default(uuid())
-  name      String?
-  email     String
-  subject   String?
-  message   String   @db.Text
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}

@@ -62,17 +62,7 @@ export const ModelName = {
   TicketBooking: 'TicketBooking',
   UnifiedBooking: 'UnifiedBooking',
   TicketBookingDetail: 'TicketBookingDetail',
-  TicketType: 'TicketType',
-  Banner: 'Banner',
-  Facilities: 'Facilities',
-  Opening: 'Opening',
-  Team: 'Team',
-  Gallery: 'Gallery',
-  HomeGallery: 'HomeGallery',
-  Moments: 'Moments',
-  LogoContact: 'LogoContact',
-  UsefulLink: 'UsefulLink',
-  Support: 'Support'
+  TicketType: 'TicketType'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -278,149 +268,12 @@ export const TicketTypeScalarFieldEnum = {
 export type TicketTypeScalarFieldEnum = (typeof TicketTypeScalarFieldEnum)[keyof typeof TicketTypeScalarFieldEnum]
 
 
-export const BannerScalarFieldEnum = {
-  id: 'id',
-  title: 'title',
-  subTitle: 'subTitle',
-  shortDescription: 'shortDescription',
-  image: 'image',
-  isActive: 'isActive',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type BannerScalarFieldEnum = (typeof BannerScalarFieldEnum)[keyof typeof BannerScalarFieldEnum]
-
-
-export const FacilitiesScalarFieldEnum = {
-  id: 'id',
-  title: 'title',
-  subTitle: 'subTitle',
-  description: 'description',
-  features: 'features',
-  image: 'image',
-  footerTitle: 'footerTitle',
-  type: 'type',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type FacilitiesScalarFieldEnum = (typeof FacilitiesScalarFieldEnum)[keyof typeof FacilitiesScalarFieldEnum]
-
-
-export const OpeningScalarFieldEnum = {
-  id: 'id',
-  day: 'day',
-  startTime: 'startTime',
-  endTime: 'endTime',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type OpeningScalarFieldEnum = (typeof OpeningScalarFieldEnum)[keyof typeof OpeningScalarFieldEnum]
-
-
-export const TeamScalarFieldEnum = {
-  id: 'id',
-  image: 'image',
-  name: 'name',
-  designation: 'designation',
-  order: 'order',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type TeamScalarFieldEnum = (typeof TeamScalarFieldEnum)[keyof typeof TeamScalarFieldEnum]
-
-
-export const GalleryScalarFieldEnum = {
-  id: 'id',
-  image: 'image',
-  order: 'order',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type GalleryScalarFieldEnum = (typeof GalleryScalarFieldEnum)[keyof typeof GalleryScalarFieldEnum]
-
-
-export const HomeGalleryScalarFieldEnum = {
-  id: 'id',
-  image: 'image',
-  order: 'order',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type HomeGalleryScalarFieldEnum = (typeof HomeGalleryScalarFieldEnum)[keyof typeof HomeGalleryScalarFieldEnum]
-
-
-export const MomentsScalarFieldEnum = {
-  id: 'id',
-  image: 'image',
-  order: 'order',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type MomentsScalarFieldEnum = (typeof MomentsScalarFieldEnum)[keyof typeof MomentsScalarFieldEnum]
-
-
-export const LogoContactScalarFieldEnum = {
-  id: 'id',
-  headerLogo: 'headerLogo',
-  footerLogo: 'footerLogo',
-  email: 'email',
-  phone: 'phone',
-  location: 'location',
-  socialLinks: 'socialLinks',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type LogoContactScalarFieldEnum = (typeof LogoContactScalarFieldEnum)[keyof typeof LogoContactScalarFieldEnum]
-
-
-export const UsefulLinkScalarFieldEnum = {
-  id: 'id',
-  privacyPolicy: 'privacyPolicy',
-  termsAndCondition: 'termsAndCondition',
-  disclaimer: 'disclaimer',
-  faq: 'faq',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type UsefulLinkScalarFieldEnum = (typeof UsefulLinkScalarFieldEnum)[keyof typeof UsefulLinkScalarFieldEnum]
-
-
-export const SupportScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  email: 'email',
-  subject: 'subject',
-  message: 'message',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type SupportScalarFieldEnum = (typeof SupportScalarFieldEnum)[keyof typeof SupportScalarFieldEnum]
-
-
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
-
-
-export const NullableJsonNullValueInput = {
-  DbNull: DbNull,
-  JsonNull: JsonNull
-} as const
-
-export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
 export const QueryMode = {
@@ -437,13 +290,4 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
-
-
-export const JsonNullValueFilter = {
-  DbNull: DbNull,
-  JsonNull: JsonNull,
-  AnyNull: AnyNull
-} as const
-
-export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 

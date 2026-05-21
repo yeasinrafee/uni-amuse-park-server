@@ -228,9 +228,9 @@ export class CheckoutService {
       const paymentPercentage = calculatedTotalAmount > 0 ? (remainingPaid / calculatedTotalAmount) * 100 : 0;
       const finalPaymentStatus = paymentPercentage >= 100 
         ? PaymentStatus.PAID 
-        : (paymentPercentage >= 25 
-            ? PaymentStatus.PARTIALLY_PAID 
-            : (paymentPercentage > 0 ? (PaymentStatus as any).DUE : PaymentStatus.UNPAID));
+        : (paymentPercentage > 0 
+            ? PaymentStatus.DUE 
+            : PaymentStatus.UNPAID);
 
       const finalStatus = remainingPaid >= calculatedTotalAmount && calculatedTotalAmount > 0
         ? UnifiedBookingStatus.CONFIRMED
@@ -261,7 +261,7 @@ export class CheckoutService {
 
       if (restaurantOrderResult && remainingPaid > 0) {
         const amountToPay = Math.min(remainingPaid, restaurantOrderResult.totalAmount);
-        const subStatus = amountToPay >= restaurantOrderResult.totalAmount ? PaymentStatus.PAID : (amountToPay > 0 ? PaymentStatus.PARTIALLY_PAID : PaymentStatus.UNPAID);
+        const subStatus = amountToPay >= restaurantOrderResult.totalAmount ? PaymentStatus.PAID : (amountToPay > 0 ? PaymentStatus.DUE : PaymentStatus.UNPAID);
         restaurantOrderResult = await tx.restaurantOrder.update({
           where: { id: restaurantOrderResult.id },
           data: {
@@ -281,7 +281,7 @@ export class CheckoutService {
           remainingPaid -= amountToPay;
         }
         
-        const subStatus = amountToPay >= rb.totalAmount ? PaymentStatus.PAID : (amountToPay > 0 ? PaymentStatus.PARTIALLY_PAID : PaymentStatus.UNPAID);
+        const subStatus = amountToPay >= rb.totalAmount ? PaymentStatus.PAID : (amountToPay > 0 ? PaymentStatus.DUE : PaymentStatus.UNPAID);
         const updatedRb = await tx.roomBooking.update({
           where: { id: rb.id },
           data: {
@@ -368,9 +368,9 @@ export class CheckoutService {
       const paymentPercentage = (newPaidAmount / unified.totalAmount) * 100;
       const newStatus = paymentPercentage >= 100 
         ? PaymentStatus.PAID 
-        : (paymentPercentage >= 25 
-            ? PaymentStatus.PARTIALLY_PAID 
-            : (paymentPercentage > 0 ? (PaymentStatus as any).DUE : PaymentStatus.UNPAID));
+        : (paymentPercentage > 0 
+            ? PaymentStatus.DUE 
+            : PaymentStatus.UNPAID);
 
       this.logger.log(`Processing payment for ${id}: Total=${unified.totalAmount}, AlreadyPaid=${unified.paidAmount}, NewPayment=${amount}, Applied=${amountToApply}, ResultPaid=${newPaidAmount}, Status=${newStatus}`);
 
@@ -400,7 +400,7 @@ export class CheckoutService {
 
       for (let r of unified.restaurantOrders) {
         const pay = Math.min(remainingToDistribute, r.totalAmount);
-        const subStatus = pay >= r.totalAmount ? PaymentStatus.PAID : (pay > 0 ? PaymentStatus.PARTIALLY_PAID : PaymentStatus.UNPAID);
+        const subStatus = pay >= r.totalAmount ? PaymentStatus.PAID : (pay > 0 ? PaymentStatus.DUE : PaymentStatus.UNPAID);
         await tx.restaurantOrder.update({
           where: { id: r.id },
           data: { paidAmount: pay, paymentStatus: subStatus }
@@ -410,7 +410,7 @@ export class CheckoutService {
 
       for (let rm of unified.roomBookings) {
         const pay = Math.min(remainingToDistribute, rm.totalAmount);
-        const subStatus = pay >= rm.totalAmount ? PaymentStatus.PAID : (pay > 0 ? PaymentStatus.PARTIALLY_PAID : PaymentStatus.UNPAID);
+        const subStatus = pay >= rm.totalAmount ? PaymentStatus.PAID : (pay > 0 ? PaymentStatus.DUE : PaymentStatus.UNPAID);
         await tx.roomBooking.update({
           where: { id: rm.id },
           data: { 
