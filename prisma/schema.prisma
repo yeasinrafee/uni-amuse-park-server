@@ -28,6 +28,15 @@ enum PaymentMethod {
   BKASH
   NAGAD
   ROCKET
+  UPAY
+}
+
+enum RefundStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+  CANCELLED
 }
 
 enum PaymentStatus {
@@ -220,9 +229,15 @@ model UnifiedBooking {
   userId           String?
   staffId          String
   transactionId    String?              @unique
+
+  // Refund tracking fields
+  refundedAmount   Float                @default(0)
+  refundStatus     RefundStatus?        // null = no refund yet
+
   ticketBookings   TicketBooking[]
   restaurantOrders RestaurantOrder[]
   roomBookings     RoomBooking[]
+  refunds          Refund[]
   createdAt        DateTime             @default(now())
   updatedAt        DateTime             @updatedAt
 }
@@ -254,4 +269,30 @@ model TicketType {
   deletedAt      DateTime?
 }
 
+model Refund {
+  id                    String            @id @default(uuid())
+  unifiedBookingId      String
+  unifiedBooking        UnifiedBooking    @relation(fields: [unifiedBookingId], references: [id], onDelete: Cascade)
+  
+  // Refund details
+  originalAmount        Float             // Original paid amount
+  refundAmount          Float             // 80% of original amount
+  refundPercentage      Float             @default(80) // Refund percentage (default 80%)
+  paymentMethod         PaymentMethod     // Method used for refund (BKASH, BANK, NAGAD, ROCKET, UPAY)
+  
+  // Refund tracking
+  status                RefundStatus      @default(PENDING)
+  refundTransactionId   String?           @unique // Transaction ID from payment gateway
+  notes                 String?           // Additional notes (error messages, etc.)
+  
+  // Metadata
+  processedAt           DateTime?         // When refund was processed
+  completedAt           DateTime?         // When refund was completed
+  createdAt             DateTime          @default(now())
+  updatedAt             DateTime          @updatedAt
+  
+  @@index([unifiedBookingId])
+  @@index([status])
+  @@index([createdAt])
+}
 

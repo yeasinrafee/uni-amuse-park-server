@@ -35,7 +35,9 @@ export class CheckoutService {
       paidAmount = 0,
     } = dto;
 
-    this.logger.log(`Creating unified booking for ${customerName}. PaidAmount in DTO: ${paidAmount}`);
+    this.logger.log(
+      `Creating unified booking for ${customerName}. PaidAmount in DTO: ${paidAmount}`,
+    );
     return this.prisma.$transaction(async (tx) => {
       // 1. Create UnifiedBooking placeholder first to get an ID
       // We'll update the totalAmount and paidAmount later
@@ -146,9 +148,14 @@ export class CheckoutService {
         const resDiscountType = dto.restaurantDiscountType || DiscountType.NONE;
 
         if (resDiscountType === DiscountType.FLAT_DISCOUNT) {
-          restaurantTotalAmount = Math.max(0, restaurantBaseAmount - resDiscountAmount);
+          restaurantTotalAmount = Math.max(
+            0,
+            restaurantBaseAmount - resDiscountAmount,
+          );
         } else if (resDiscountType === DiscountType.PERCENTAGE_DISCOUNT) {
-          restaurantTotalAmount = restaurantBaseAmount - restaurantBaseAmount * (resDiscountAmount / 100);
+          restaurantTotalAmount =
+            restaurantBaseAmount -
+            restaurantBaseAmount * (resDiscountAmount / 100);
         }
 
         calculatedTotalAmount += restaurantTotalAmount;
@@ -177,11 +184,17 @@ export class CheckoutService {
       if (roomBookings && roomBookings.length > 0) {
         for (const rb of roomBookings) {
           const room = await tx.room.findFirst({
-            where: { id: rb.roomId, deletedAt: null, isUnderMaintenance: false },
+            where: {
+              id: rb.roomId,
+              deletedAt: null,
+              isUnderMaintenance: false,
+            },
           });
 
           if (!room) {
-            throw new NotFoundException(`Room ${rb.roomId} not found or unavailable`);
+            throw new NotFoundException(
+              `Room ${rb.roomId} not found or unavailable`,
+            );
           }
 
           const overlapping = await tx.roomBooking.findMany({
@@ -196,7 +209,9 @@ export class CheckoutService {
           });
 
           if (overlapping.length > 0) {
-            throw new BadRequestException(`Room ${room.roomNumber} is not available for the selected dates`);
+            throw new BadRequestException(
+              `Room ${room.roomNumber} is not available for the selected dates`,
+            );
           }
 
           calculatedTotalAmount += rb.totalAmount;
@@ -206,8 +221,10 @@ export class CheckoutService {
               customerName: customerName || 'N/A',
               customerPhone: customerPhone || 'N/A',
               customerEmail,
-              customerIdentificationType: customerIdentificationType || IdentificationType.NID,
-              customerIdentificationNumber: customerIdentificationNumber || 'N/A',
+              customerIdentificationType:
+                customerIdentificationType || IdentificationType.NID,
+              customerIdentificationNumber:
+                customerIdentificationNumber || 'N/A',
               userId,
               roomId: rb.roomId,
               checkinDate: new Date(rb.checkinDate),
@@ -225,16 +242,21 @@ export class CheckoutService {
 
       // 5. Update UnifiedBooking with correct totals and distribute paidAmount
       let remainingPaid = paidAmount;
-      const paymentPercentage = calculatedTotalAmount > 0 ? (remainingPaid / calculatedTotalAmount) * 100 : 0;
-      const finalPaymentStatus = paymentPercentage >= 100 
-        ? PaymentStatus.PAID 
-        : (paymentPercentage > 0 
-            ? PaymentStatus.DUE 
-            : PaymentStatus.UNPAID);
+      const paymentPercentage =
+        calculatedTotalAmount > 0
+          ? (remainingPaid / calculatedTotalAmount) * 100
+          : 0;
+      const finalPaymentStatus =
+        paymentPercentage >= 100
+          ? PaymentStatus.PAID
+          : paymentPercentage > 0
+            ? PaymentStatus.DUE
+            : PaymentStatus.UNPAID;
 
-      const finalStatus = remainingPaid >= calculatedTotalAmount && calculatedTotalAmount > 0
-        ? UnifiedBookingStatus.CONFIRMED
-        : UnifiedBookingStatus.PENDING;
+      const finalStatus =
+        remainingPaid >= calculatedTotalAmount && calculatedTotalAmount > 0
+          ? UnifiedBookingStatus.CONFIRMED
+          : UnifiedBookingStatus.PENDING;
 
       const updatedUnifiedBooking = await tx.unifiedBooking.update({
         where: { id: unifiedBooking.id },
@@ -248,11 +270,17 @@ export class CheckoutService {
 
       // Distribute payment to sub-entities
       if (ticketBookingResult && remainingPaid > 0) {
-        const amountToPay = Math.min(remainingPaid, ticketBookingResult.totalAmount);
+        const amountToPay = Math.min(
+          remainingPaid,
+          ticketBookingResult.totalAmount,
+        );
         ticketBookingResult = await tx.ticketBooking.update({
           where: { id: ticketBookingResult.id },
           data: {
-            status: amountToPay >= ticketBookingResult.totalAmount ? 'CONFIRMED' : 'PENDING'
+            status:
+              amountToPay >= ticketBookingResult.totalAmount
+                ? 'CONFIRMED'
+                : 'PENDING',
           },
           include: { bookingDetails: true },
         });
@@ -260,13 +288,21 @@ export class CheckoutService {
       }
 
       if (restaurantOrderResult && remainingPaid > 0) {
-        const amountToPay = Math.min(remainingPaid, restaurantOrderResult.totalAmount);
-        const subStatus = amountToPay >= restaurantOrderResult.totalAmount ? PaymentStatus.PAID : (amountToPay > 0 ? PaymentStatus.DUE : PaymentStatus.UNPAID);
+        const amountToPay = Math.min(
+          remainingPaid,
+          restaurantOrderResult.totalAmount,
+        );
+        const subStatus =
+          amountToPay >= restaurantOrderResult.totalAmount
+            ? PaymentStatus.PAID
+            : amountToPay > 0
+              ? PaymentStatus.DUE
+              : PaymentStatus.UNPAID;
         restaurantOrderResult = await tx.restaurantOrder.update({
           where: { id: restaurantOrderResult.id },
           data: {
             paidAmount: amountToPay,
-            paymentStatus: subStatus
+            paymentStatus: subStatus,
           },
           include: { orderItems: true },
         });
@@ -280,16 +316,21 @@ export class CheckoutService {
           amountToPay = Math.min(remainingPaid, rb.totalAmount);
           remainingPaid -= amountToPay;
         }
-        
-        const subStatus = amountToPay >= rb.totalAmount ? PaymentStatus.PAID : (amountToPay > 0 ? PaymentStatus.DUE : PaymentStatus.UNPAID);
+
+        const subStatus =
+          amountToPay >= rb.totalAmount
+            ? PaymentStatus.PAID
+            : amountToPay > 0
+              ? PaymentStatus.DUE
+              : PaymentStatus.UNPAID;
         const updatedRb = await tx.roomBooking.update({
           where: { id: rb.id },
           data: {
             paidAmount: amountToPay,
             paymentStatus: subStatus,
-            status: amountToPay > 0 ? 'CONFIRMED' : 'PENDING'
+            status: amountToPay > 0 ? 'CONFIRMED' : 'PENDING',
           },
-          include: { room: { include: { roomType: true } } }
+          include: { room: { include: { roomType: true } } },
         });
         updatedRoomBookingResults.push(updatedRb);
       }
@@ -314,30 +355,36 @@ export class CheckoutService {
         ticketBookings: {
           include: {
             bookingDetails: {
-              include: { ticketType: true }
-            }
-          }
+              include: { ticketType: true },
+            },
+          },
         },
         restaurantOrders: {
           include: {
             orderItems: {
-              include: { item: true }
-            }
-          }
+              include: { item: true },
+            },
+          },
         },
         roomBookings: {
           include: {
             room: {
-              include: { roomType: true }
-            }
-          }
-        }
+              include: { roomType: true },
+            },
+          },
+        },
+        refunds: true, // optional: সব refund detail দেখাতে চাইলে
       },
-      orderBy: { createdAt: 'desc' }
+      orderBy: { createdAt: 'desc' },
     });
   }
 
-  async processPayment(id: string, amount: number, method?: PaymentMethod, transactionId?: string) {
+  async processPayment(
+    id: string,
+    amount: number,
+    method?: PaymentMethod,
+    transactionId?: string,
+  ) {
     return this.prisma.$transaction(async (tx) => {
       const unified = await tx.unifiedBooking.findUnique({
         where: { id },
@@ -345,14 +392,16 @@ export class CheckoutService {
           ticketBookings: true,
           restaurantOrders: true,
           roomBookings: true,
-        }
+        },
       });
 
       if (!unified) throw new NotFoundException('Booking not found');
 
       // If this transaction ID was already processed, skip
       if (transactionId && unified.transactionId === transactionId) {
-        this.logger.log(`Transaction ${transactionId} already processed for booking ${id}. Skipping.`);
+        this.logger.log(
+          `Transaction ${transactionId} already processed for booking ${id}. Skipping.`,
+        );
         return unified;
       }
 
@@ -361,18 +410,25 @@ export class CheckoutService {
         return unified;
       }
 
-      const remainingBalance = Number((unified.totalAmount - unified.paidAmount).toFixed(2));
+      const remainingBalance = Number(
+        (unified.totalAmount - unified.paidAmount).toFixed(2),
+      );
       const amountToApply = Math.min(amount, remainingBalance);
-      const newPaidAmount = Number((unified.paidAmount + amountToApply).toFixed(2));
+      const newPaidAmount = Number(
+        (unified.paidAmount + amountToApply).toFixed(2),
+      );
 
       const paymentPercentage = (newPaidAmount / unified.totalAmount) * 100;
-      const newStatus = paymentPercentage >= 100 
-        ? PaymentStatus.PAID 
-        : (paymentPercentage > 0 
-            ? PaymentStatus.DUE 
-            : PaymentStatus.UNPAID);
+      const newStatus =
+        paymentPercentage >= 100
+          ? PaymentStatus.PAID
+          : paymentPercentage > 0
+            ? PaymentStatus.DUE
+            : PaymentStatus.UNPAID;
 
-      this.logger.log(`Processing payment for ${id}: Total=${unified.totalAmount}, AlreadyPaid=${unified.paidAmount}, NewPayment=${amount}, Applied=${amountToApply}, ResultPaid=${newPaidAmount}, Status=${newStatus}`);
+      this.logger.log(
+        `Processing payment for ${id}: Total=${unified.totalAmount}, AlreadyPaid=${unified.paidAmount}, NewPayment=${amount}, Applied=${amountToApply}, ResultPaid=${newPaidAmount}, Status=${newStatus}`,
+      );
 
       // Update Unified Booking
       const updatedUnified = await tx.unifiedBooking.update({
@@ -382,8 +438,8 @@ export class CheckoutService {
           paymentStatus: newStatus,
           transactionId: transactionId,
           status: UnifiedBookingStatus.CONFIRMED, // Mark as confirmed when payment is received
-          ...(method && { paymentMethod: method })
-        }
+          ...(method && { paymentMethod: method }),
+        },
       });
 
       // Redistribute total paid amount to sub-entities
@@ -393,31 +449,41 @@ export class CheckoutService {
         const pay = Math.min(remainingToDistribute, t.totalAmount);
         await tx.ticketBooking.update({
           where: { id: t.id },
-          data: { status: pay >= t.totalAmount ? 'CONFIRMED' : 'PENDING' }
+          data: { status: pay >= t.totalAmount ? 'CONFIRMED' : 'PENDING' },
         });
         remainingToDistribute -= pay;
       }
 
       for (let r of unified.restaurantOrders) {
         const pay = Math.min(remainingToDistribute, r.totalAmount);
-        const subStatus = pay >= r.totalAmount ? PaymentStatus.PAID : (pay > 0 ? PaymentStatus.DUE : PaymentStatus.UNPAID);
+        const subStatus =
+          pay >= r.totalAmount
+            ? PaymentStatus.PAID
+            : pay > 0
+              ? PaymentStatus.DUE
+              : PaymentStatus.UNPAID;
         await tx.restaurantOrder.update({
           where: { id: r.id },
-          data: { paidAmount: pay, paymentStatus: subStatus }
+          data: { paidAmount: pay, paymentStatus: subStatus },
         });
         remainingToDistribute -= pay;
       }
 
       for (let rm of unified.roomBookings) {
         const pay = Math.min(remainingToDistribute, rm.totalAmount);
-        const subStatus = pay >= rm.totalAmount ? PaymentStatus.PAID : (pay > 0 ? PaymentStatus.DUE : PaymentStatus.UNPAID);
+        const subStatus =
+          pay >= rm.totalAmount
+            ? PaymentStatus.PAID
+            : pay > 0
+              ? PaymentStatus.DUE
+              : PaymentStatus.UNPAID;
         await tx.roomBooking.update({
           where: { id: rm.id },
-          data: { 
-            paidAmount: pay, 
+          data: {
+            paidAmount: pay,
             paymentStatus: subStatus,
-            status: pay > 0 ? 'CONFIRMED' : 'PENDING' 
-          }
+            status: pay > 0 ? 'CONFIRMED' : 'PENDING',
+          },
         });
         remainingToDistribute -= pay;
       }

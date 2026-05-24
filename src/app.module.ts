@@ -12,6 +12,7 @@ import { CheckoutModule } from './modules/checkout/checkout.module';
 import { AnalyticsModule } from './modules/analytics/analytics.module';
 import { ReportModule } from './modules/report/report.module';
 import { PaymentModule } from './modules/payment/payment.module';
+import { RefundModule } from './modules/refund/refund.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { PaymentModule } from './modules/payment/payment.module';
     AnalyticsModule,
     ReportModule,
     PaymentModule,
+    RefundModule,
   ],
   controllers: [AppController],
   providers: [AppService],

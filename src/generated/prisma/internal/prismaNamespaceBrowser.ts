@@ -62,7 +62,8 @@ export const ModelName = {
   TicketBooking: 'TicketBooking',
   UnifiedBooking: 'UnifiedBooking',
   TicketBookingDetail: 'TicketBookingDetail',
-  TicketType: 'TicketType'
+  TicketType: 'TicketType',
+  Refund: 'Refund'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -237,6 +238,8 @@ export const UnifiedBookingScalarFieldEnum = {
   userId: 'userId',
   staffId: 'staffId',
   transactionId: 'transactionId',
+  refundedAmount: 'refundedAmount',
+  refundStatus: 'refundStatus',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -266,6 +269,25 @@ export const TicketTypeScalarFieldEnum = {
 } as const
 
 export type TicketTypeScalarFieldEnum = (typeof TicketTypeScalarFieldEnum)[keyof typeof TicketTypeScalarFieldEnum]
+
+
+export const RefundScalarFieldEnum = {
+  id: 'id',
+  unifiedBookingId: 'unifiedBookingId',
+  originalAmount: 'originalAmount',
+  refundAmount: 'refundAmount',
+  refundPercentage: 'refundPercentage',
+  paymentMethod: 'paymentMethod',
+  status: 'status',
+  refundTransactionId: 'refundTransactionId',
+  notes: 'notes',
+  processedAt: 'processedAt',
+  completedAt: 'completedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type RefundScalarFieldEnum = (typeof RefundScalarFieldEnum)[keyof typeof RefundScalarFieldEnum]
 
 
 export const SortOrder = {

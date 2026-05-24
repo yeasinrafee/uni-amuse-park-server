@@ -14,10 +14,22 @@ export const PaymentMethod = {
   BANK: 'BANK',
   BKASH: 'BKASH',
   NAGAD: 'NAGAD',
-  ROCKET: 'ROCKET'
+  ROCKET: 'ROCKET',
+  UPAY: 'UPAY'
 } as const
 
 export type PaymentMethod = (typeof PaymentMethod)[keyof typeof PaymentMethod]
+
+
+export const RefundStatus = {
+  PENDING: 'PENDING',
+  PROCESSING: 'PROCESSING',
+  COMPLETED: 'COMPLETED',
+  FAILED: 'FAILED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type RefundStatus = (typeof RefundStatus)[keyof typeof RefundStatus]
 
 
 export const PaymentStatus = {

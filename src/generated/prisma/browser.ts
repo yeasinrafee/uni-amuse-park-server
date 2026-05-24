@@ -77,3 +77,8 @@ export type TicketBookingDetail = Prisma.TicketBookingDetailModel
  * 
  */
 export type TicketType = Prisma.TicketTypeModel
+/**
+ * Model Refund
+ * 
+ */
+export type Refund = Prisma.RefundModel

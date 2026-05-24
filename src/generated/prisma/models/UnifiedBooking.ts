@@ -29,11 +29,13 @@ export type AggregateUnifiedBooking = {
 export type UnifiedBookingAvgAggregateOutputType = {
   totalAmount: number | null
   paidAmount: number | null
+  refundedAmount: number | null
 }
 
 export type UnifiedBookingSumAggregateOutputType = {
   totalAmount: number | null
   paidAmount: number | null
+  refundedAmount: number | null
 }
 
 export type UnifiedBookingMinAggregateOutputType = {
@@ -48,6 +50,8 @@ export type UnifiedBookingMinAggregateOutputType = {
   userId: string | null
   staffId: string | null
   transactionId: string | null
+  refundedAmount: number | null
+  refundStatus: $Enums.RefundStatus | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -64,6 +68,8 @@ export type UnifiedBookingMaxAggregateOutputType = {
   userId: string | null
   staffId: string | null
   transactionId: string | null
+  refundedAmount: number | null
+  refundStatus: $Enums.RefundStatus | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -80,6 +86,8 @@ export type UnifiedBookingCountAggregateOutputType = {
   userId: number
   staffId: number
   transactionId: number
+  refundedAmount: number
+  refundStatus: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -89,11 +97,13 @@ export type UnifiedBookingCountAggregateOutputType = {
 export type UnifiedBookingAvgAggregateInputType = {
   totalAmount?: true
   paidAmount?: true
+  refundedAmount?: true
 }
 
 export type UnifiedBookingSumAggregateInputType = {
   totalAmount?: true
   paidAmount?: true
+  refundedAmount?: true
 }
 
 export type UnifiedBookingMinAggregateInputType = {
@@ -108,6 +118,8 @@ export type UnifiedBookingMinAggregateInputType = {
   userId?: true
   staffId?: true
   transactionId?: true
+  refundedAmount?: true
+  refundStatus?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -124,6 +136,8 @@ export type UnifiedBookingMaxAggregateInputType = {
   userId?: true
   staffId?: true
   transactionId?: true
+  refundedAmount?: true
+  refundStatus?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -140,6 +154,8 @@ export type UnifiedBookingCountAggregateInputType = {
   userId?: true
   staffId?: true
   transactionId?: true
+  refundedAmount?: true
+  refundStatus?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -243,6 +259,8 @@ export type UnifiedBookingGroupByOutputType = {
   userId: string | null
   staffId: string
   transactionId: string | null
+  refundedAmount: number
+  refundStatus: $Enums.RefundStatus | null
   createdAt: Date
   updatedAt: Date
   _count: UnifiedBookingCountAggregateOutputType | null
@@ -282,11 +300,14 @@ export type UnifiedBookingWhereInput = {
   userId?: Prisma.StringNullableFilter<"UnifiedBooking"> | string | null
   staffId?: Prisma.StringFilter<"UnifiedBooking"> | string
   transactionId?: Prisma.StringNullableFilter<"UnifiedBooking"> | string | null
+  refundedAmount?: Prisma.FloatFilter<"UnifiedBooking"> | number
+  refundStatus?: Prisma.EnumRefundStatusNullableFilter<"UnifiedBooking"> | $Enums.RefundStatus | null
   createdAt?: Prisma.DateTimeFilter<"UnifiedBooking"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"UnifiedBooking"> | Date | string
   ticketBookings?: Prisma.TicketBookingListRelationFilter
   restaurantOrders?: Prisma.RestaurantOrderListRelationFilter
   roomBookings?: Prisma.RoomBookingListRelationFilter
+  refunds?: Prisma.RefundListRelationFilter
 }
 
 export type UnifiedBookingOrderByWithRelationInput = {
@@ -301,11 +322,14 @@ export type UnifiedBookingOrderByWithRelationInput = {
   userId?: Prisma.SortOrderInput | Prisma.SortOrder
   staffId?: Prisma.SortOrder
   transactionId?: Prisma.SortOrderInput | Prisma.SortOrder
+  refundedAmount?: Prisma.SortOrder
+  refundStatus?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   ticketBookings?: Prisma.TicketBookingOrderByRelationAggregateInput
   restaurantOrders?: Prisma.RestaurantOrderOrderByRelationAggregateInput
   roomBookings?: Prisma.RoomBookingOrderByRelationAggregateInput
+  refunds?: Prisma.RefundOrderByRelationAggregateInput
 }
 
 export type UnifiedBookingWhereUniqueInput = Prisma.AtLeast<{
@@ -323,11 +347,14 @@ export type UnifiedBookingWhereUniqueInput = Prisma.AtLeast<{
   customerPhone?: Prisma.StringNullableFilter<"UnifiedBooking"> | string | null
   userId?: Prisma.StringNullableFilter<"UnifiedBooking"> | string | null
   staffId?: Prisma.StringFilter<"UnifiedBooking"> | string
+  refundedAmount?: Prisma.FloatFilter<"UnifiedBooking"> | number
+  refundStatus?: Prisma.EnumRefundStatusNullableFilter<"UnifiedBooking"> | $Enums.RefundStatus | null
   createdAt?: Prisma.DateTimeFilter<"UnifiedBooking"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"UnifiedBooking"> | Date | string
   ticketBookings?: Prisma.TicketBookingListRelationFilter
   restaurantOrders?: Prisma.RestaurantOrderListRelationFilter
   roomBookings?: Prisma.RoomBookingListRelationFilter
+  refunds?: Prisma.RefundListRelationFilter
 }, "id" | "transactionId">
 
 export type UnifiedBookingOrderByWithAggregationInput = {
@@ -342,6 +369,8 @@ export type UnifiedBookingOrderByWithAggregationInput = {
   userId?: Prisma.SortOrderInput | Prisma.SortOrder
   staffId?: Prisma.SortOrder
   transactionId?: Prisma.SortOrderInput | Prisma.SortOrder
+  refundedAmount?: Prisma.SortOrder
+  refundStatus?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.UnifiedBookingCountOrderByAggregateInput
@@ -366,6 +395,8 @@ export type UnifiedBookingScalarWhereWithAggregatesInput = {
   userId?: Prisma.StringNullableWithAggregatesFilter<"UnifiedBooking"> | string | null
   staffId?: Prisma.StringWithAggregatesFilter<"UnifiedBooking"> | string
   transactionId?: Prisma.StringNullableWithAggregatesFilter<"UnifiedBooking"> | string | null
+  refundedAmount?: Prisma.FloatWithAggregatesFilter<"UnifiedBooking"> | number
+  refundStatus?: Prisma.EnumRefundStatusNullableWithAggregatesFilter<"UnifiedBooking"> | $Enums.RefundStatus | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"UnifiedBooking"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"UnifiedBooking"> | Date | string
 }
@@ -382,11 +413,14 @@ export type UnifiedBookingCreateInput = {
   userId?: string | null
   staffId: string
   transactionId?: string | null
+  refundedAmount?: number
+  refundStatus?: $Enums.RefundStatus | null
   createdAt?: Date | string
   updatedAt?: Date | string
   ticketBookings?: Prisma.TicketBookingCreateNestedManyWithoutUnifiedBookingInput
   restaurantOrders?: Prisma.RestaurantOrderCreateNestedManyWithoutUnifiedBookingInput
   roomBookings?: Prisma.RoomBookingCreateNestedManyWithoutUnifiedBookingInput
+  refunds?: Prisma.RefundCreateNestedManyWithoutUnifiedBookingInput
 }
 
 export type UnifiedBookingUncheckedCreateInput = {
@@ -401,11 +435,14 @@ export type UnifiedBookingUncheckedCreateInput = {
   userId?: string | null
   staffId: string
   transactionId?: string | null
+  refundedAmount?: number
+  refundStatus?: $Enums.RefundStatus | null
   createdAt?: Date | string
   updatedAt?: Date | string
   ticketBookings?: Prisma.TicketBookingUncheckedCreateNestedManyWithoutUnifiedBookingInput
   restaurantOrders?: Prisma.RestaurantOrderUncheckedCreateNestedManyWithoutUnifiedBookingInput
   roomBookings?: Prisma.RoomBookingUncheckedCreateNestedManyWithoutUnifiedBookingInput
+  refunds?: Prisma.RefundUncheckedCreateNestedManyWithoutUnifiedBookingInput
 }
 
 export type UnifiedBookingUpdateInput = {
@@ -420,11 +457,14 @@ export type UnifiedBookingUpdateInput = {
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   staffId?: Prisma.StringFieldUpdateOperationsInput | string
   transactionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refundedAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  refundStatus?: Prisma.NullableEnumRefundStatusFieldUpdateOperationsInput | $Enums.RefundStatus | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ticketBookings?: Prisma.TicketBookingUpdateManyWithoutUnifiedBookingNestedInput
   restaurantOrders?: Prisma.RestaurantOrderUpdateManyWithoutUnifiedBookingNestedInput
   roomBookings?: Prisma.RoomBookingUpdateManyWithoutUnifiedBookingNestedInput
+  refunds?: Prisma.RefundUpdateManyWithoutUnifiedBookingNestedInput
 }
 
 export type UnifiedBookingUncheckedUpdateInput = {
@@ -439,11 +479,14 @@ export type UnifiedBookingUncheckedUpdateInput = {
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   staffId?: Prisma.StringFieldUpdateOperationsInput | string
   transactionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refundedAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  refundStatus?: Prisma.NullableEnumRefundStatusFieldUpdateOperationsInput | $Enums.RefundStatus | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ticketBookings?: Prisma.TicketBookingUncheckedUpdateManyWithoutUnifiedBookingNestedInput
   restaurantOrders?: Prisma.RestaurantOrderUncheckedUpdateManyWithoutUnifiedBookingNestedInput
   roomBookings?: Prisma.RoomBookingUncheckedUpdateManyWithoutUnifiedBookingNestedInput
+  refunds?: Prisma.RefundUncheckedUpdateManyWithoutUnifiedBookingNestedInput
 }
 
 export type UnifiedBookingCreateManyInput = {
@@ -458,6 +501,8 @@ export type UnifiedBookingCreateManyInput = {
   userId?: string | null
   staffId: string
   transactionId?: string | null
+  refundedAmount?: number
+  refundStatus?: $Enums.RefundStatus | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -474,6 +519,8 @@ export type UnifiedBookingUpdateManyMutationInput = {
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   staffId?: Prisma.StringFieldUpdateOperationsInput | string
   transactionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refundedAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  refundStatus?: Prisma.NullableEnumRefundStatusFieldUpdateOperationsInput | $Enums.RefundStatus | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -490,6 +537,8 @@ export type UnifiedBookingUncheckedUpdateManyInput = {
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   staffId?: Prisma.StringFieldUpdateOperationsInput | string
   transactionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refundedAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  refundStatus?: Prisma.NullableEnumRefundStatusFieldUpdateOperationsInput | $Enums.RefundStatus | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -511,6 +560,8 @@ export type UnifiedBookingCountOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   staffId?: Prisma.SortOrder
   transactionId?: Prisma.SortOrder
+  refundedAmount?: Prisma.SortOrder
+  refundStatus?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -518,6 +569,7 @@ export type UnifiedBookingCountOrderByAggregateInput = {
 export type UnifiedBookingAvgOrderByAggregateInput = {
   totalAmount?: Prisma.SortOrder
   paidAmount?: Prisma.SortOrder
+  refundedAmount?: Prisma.SortOrder
 }
 
 export type UnifiedBookingMaxOrderByAggregateInput = {
@@ -532,6 +584,8 @@ export type UnifiedBookingMaxOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   staffId?: Prisma.SortOrder
   transactionId?: Prisma.SortOrder
+  refundedAmount?: Prisma.SortOrder
+  refundStatus?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -548,6 +602,8 @@ export type UnifiedBookingMinOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   staffId?: Prisma.SortOrder
   transactionId?: Prisma.SortOrder
+  refundedAmount?: Prisma.SortOrder
+  refundStatus?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -555,6 +611,12 @@ export type UnifiedBookingMinOrderByAggregateInput = {
 export type UnifiedBookingSumOrderByAggregateInput = {
   totalAmount?: Prisma.SortOrder
   paidAmount?: Prisma.SortOrder
+  refundedAmount?: Prisma.SortOrder
+}
+
+export type UnifiedBookingScalarRelationFilter = {
+  is?: Prisma.UnifiedBookingWhereInput
+  isNot?: Prisma.UnifiedBookingWhereInput
 }
 
 export type UnifiedBookingCreateNestedOneWithoutRoomBookingsInput = {
@@ -609,6 +671,24 @@ export type EnumUnifiedBookingStatusFieldUpdateOperationsInput = {
   set?: $Enums.UnifiedBookingStatus
 }
 
+export type NullableEnumRefundStatusFieldUpdateOperationsInput = {
+  set?: $Enums.RefundStatus | null
+}
+
+export type UnifiedBookingCreateNestedOneWithoutRefundsInput = {
+  create?: Prisma.XOR<Prisma.UnifiedBookingCreateWithoutRefundsInput, Prisma.UnifiedBookingUncheckedCreateWithoutRefundsInput>
+  connectOrCreate?: Prisma.UnifiedBookingCreateOrConnectWithoutRefundsInput
+  connect?: Prisma.UnifiedBookingWhereUniqueInput
+}
+
+export type UnifiedBookingUpdateOneRequiredWithoutRefundsNestedInput = {
+  create?: Prisma.XOR<Prisma.UnifiedBookingCreateWithoutRefundsInput, Prisma.UnifiedBookingUncheckedCreateWithoutRefundsInput>
+  connectOrCreate?: Prisma.UnifiedBookingCreateOrConnectWithoutRefundsInput
+  upsert?: Prisma.UnifiedBookingUpsertWithoutRefundsInput
+  connect?: Prisma.UnifiedBookingWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UnifiedBookingUpdateToOneWithWhereWithoutRefundsInput, Prisma.UnifiedBookingUpdateWithoutRefundsInput>, Prisma.UnifiedBookingUncheckedUpdateWithoutRefundsInput>
+}
+
 export type UnifiedBookingCreateWithoutRoomBookingsInput = {
   id?: string
   totalAmount: number
@@ -621,10 +701,13 @@ export type UnifiedBookingCreateWithoutRoomBookingsInput = {
   userId?: string | null
   staffId: string
   transactionId?: string | null
+  refundedAmount?: number
+  refundStatus?: $Enums.RefundStatus | null
   createdAt?: Date | string
   updatedAt?: Date | string
   ticketBookings?: Prisma.TicketBookingCreateNestedManyWithoutUnifiedBookingInput
   restaurantOrders?: Prisma.RestaurantOrderCreateNestedManyWithoutUnifiedBookingInput
+  refunds?: Prisma.RefundCreateNestedManyWithoutUnifiedBookingInput
 }
 
 export type UnifiedBookingUncheckedCreateWithoutRoomBookingsInput = {
@@ -639,10 +722,13 @@ export type UnifiedBookingUncheckedCreateWithoutRoomBookingsInput = {
   userId?: string | null
   staffId: string
   transactionId?: string | null
+  refundedAmount?: number
+  refundStatus?: $Enums.RefundStatus | null
   createdAt?: Date | string
   updatedAt?: Date | string
   ticketBookings?: Prisma.TicketBookingUncheckedCreateNestedManyWithoutUnifiedBookingInput
   restaurantOrders?: Prisma.RestaurantOrderUncheckedCreateNestedManyWithoutUnifiedBookingInput
+  refunds?: Prisma.RefundUncheckedCreateNestedManyWithoutUnifiedBookingInput
 }
 
 export type UnifiedBookingCreateOrConnectWithoutRoomBookingsInput = {
@@ -673,10 +759,13 @@ export type UnifiedBookingUpdateWithoutRoomBookingsInput = {
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   staffId?: Prisma.StringFieldUpdateOperationsInput | string
   transactionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refundedAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  refundStatus?: Prisma.NullableEnumRefundStatusFieldUpdateOperationsInput | $Enums.RefundStatus | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ticketBookings?: Prisma.TicketBookingUpdateManyWithoutUnifiedBookingNestedInput
   restaurantOrders?: Prisma.RestaurantOrderUpdateManyWithoutUnifiedBookingNestedInput
+  refunds?: Prisma.RefundUpdateManyWithoutUnifiedBookingNestedInput
 }
 
 export type UnifiedBookingUncheckedUpdateWithoutRoomBookingsInput = {
@@ -691,10 +780,13 @@ export type UnifiedBookingUncheckedUpdateWithoutRoomBookingsInput = {
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   staffId?: Prisma.StringFieldUpdateOperationsInput | string
   transactionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refundedAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  refundStatus?: Prisma.NullableEnumRefundStatusFieldUpdateOperationsInput | $Enums.RefundStatus | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ticketBookings?: Prisma.TicketBookingUncheckedUpdateManyWithoutUnifiedBookingNestedInput
   restaurantOrders?: Prisma.RestaurantOrderUncheckedUpdateManyWithoutUnifiedBookingNestedInput
+  refunds?: Prisma.RefundUncheckedUpdateManyWithoutUnifiedBookingNestedInput
 }
 
 export type UnifiedBookingCreateWithoutRestaurantOrdersInput = {
@@ -709,10 +801,13 @@ export type UnifiedBookingCreateWithoutRestaurantOrdersInput = {
   userId?: string | null
   staffId: string
   transactionId?: string | null
+  refundedAmount?: number
+  refundStatus?: $Enums.RefundStatus | null
   createdAt?: Date | string
   updatedAt?: Date | string
   ticketBookings?: Prisma.TicketBookingCreateNestedManyWithoutUnifiedBookingInput
   roomBookings?: Prisma.RoomBookingCreateNestedManyWithoutUnifiedBookingInput
+  refunds?: Prisma.RefundCreateNestedManyWithoutUnifiedBookingInput
 }
 
 export type UnifiedBookingUncheckedCreateWithoutRestaurantOrdersInput = {
@@ -727,10 +822,13 @@ export type UnifiedBookingUncheckedCreateWithoutRestaurantOrdersInput = {
   userId?: string | null
   staffId: string
   transactionId?: string | null
+  refundedAmount?: number
+  refundStatus?: $Enums.RefundStatus | null
   createdAt?: Date | string
   updatedAt?: Date | string
   ticketBookings?: Prisma.TicketBookingUncheckedCreateNestedManyWithoutUnifiedBookingInput
   roomBookings?: Prisma.RoomBookingUncheckedCreateNestedManyWithoutUnifiedBookingInput
+  refunds?: Prisma.RefundUncheckedCreateNestedManyWithoutUnifiedBookingInput
 }
 
 export type UnifiedBookingCreateOrConnectWithoutRestaurantOrdersInput = {
@@ -761,10 +859,13 @@ export type UnifiedBookingUpdateWithoutRestaurantOrdersInput = {
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   staffId?: Prisma.StringFieldUpdateOperationsInput | string
   transactionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refundedAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  refundStatus?: Prisma.NullableEnumRefundStatusFieldUpdateOperationsInput | $Enums.RefundStatus | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ticketBookings?: Prisma.TicketBookingUpdateManyWithoutUnifiedBookingNestedInput
   roomBookings?: Prisma.RoomBookingUpdateManyWithoutUnifiedBookingNestedInput
+  refunds?: Prisma.RefundUpdateManyWithoutUnifiedBookingNestedInput
 }
 
 export type UnifiedBookingUncheckedUpdateWithoutRestaurantOrdersInput = {
@@ -779,10 +880,13 @@ export type UnifiedBookingUncheckedUpdateWithoutRestaurantOrdersInput = {
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   staffId?: Prisma.StringFieldUpdateOperationsInput | string
   transactionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refundedAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  refundStatus?: Prisma.NullableEnumRefundStatusFieldUpdateOperationsInput | $Enums.RefundStatus | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ticketBookings?: Prisma.TicketBookingUncheckedUpdateManyWithoutUnifiedBookingNestedInput
   roomBookings?: Prisma.RoomBookingUncheckedUpdateManyWithoutUnifiedBookingNestedInput
+  refunds?: Prisma.RefundUncheckedUpdateManyWithoutUnifiedBookingNestedInput
 }
 
 export type UnifiedBookingCreateWithoutTicketBookingsInput = {
@@ -797,10 +901,13 @@ export type UnifiedBookingCreateWithoutTicketBookingsInput = {
   userId?: string | null
   staffId: string
   transactionId?: string | null
+  refundedAmount?: number
+  refundStatus?: $Enums.RefundStatus | null
   createdAt?: Date | string
   updatedAt?: Date | string
   restaurantOrders?: Prisma.RestaurantOrderCreateNestedManyWithoutUnifiedBookingInput
   roomBookings?: Prisma.RoomBookingCreateNestedManyWithoutUnifiedBookingInput
+  refunds?: Prisma.RefundCreateNestedManyWithoutUnifiedBookingInput
 }
 
 export type UnifiedBookingUncheckedCreateWithoutTicketBookingsInput = {
@@ -815,10 +922,13 @@ export type UnifiedBookingUncheckedCreateWithoutTicketBookingsInput = {
   userId?: string | null
   staffId: string
   transactionId?: string | null
+  refundedAmount?: number
+  refundStatus?: $Enums.RefundStatus | null
   createdAt?: Date | string
   updatedAt?: Date | string
   restaurantOrders?: Prisma.RestaurantOrderUncheckedCreateNestedManyWithoutUnifiedBookingInput
   roomBookings?: Prisma.RoomBookingUncheckedCreateNestedManyWithoutUnifiedBookingInput
+  refunds?: Prisma.RefundUncheckedCreateNestedManyWithoutUnifiedBookingInput
 }
 
 export type UnifiedBookingCreateOrConnectWithoutTicketBookingsInput = {
@@ -849,10 +959,13 @@ export type UnifiedBookingUpdateWithoutTicketBookingsInput = {
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   staffId?: Prisma.StringFieldUpdateOperationsInput | string
   transactionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refundedAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  refundStatus?: Prisma.NullableEnumRefundStatusFieldUpdateOperationsInput | $Enums.RefundStatus | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   restaurantOrders?: Prisma.RestaurantOrderUpdateManyWithoutUnifiedBookingNestedInput
   roomBookings?: Prisma.RoomBookingUpdateManyWithoutUnifiedBookingNestedInput
+  refunds?: Prisma.RefundUpdateManyWithoutUnifiedBookingNestedInput
 }
 
 export type UnifiedBookingUncheckedUpdateWithoutTicketBookingsInput = {
@@ -867,8 +980,111 @@ export type UnifiedBookingUncheckedUpdateWithoutTicketBookingsInput = {
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   staffId?: Prisma.StringFieldUpdateOperationsInput | string
   transactionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refundedAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  refundStatus?: Prisma.NullableEnumRefundStatusFieldUpdateOperationsInput | $Enums.RefundStatus | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  restaurantOrders?: Prisma.RestaurantOrderUncheckedUpdateManyWithoutUnifiedBookingNestedInput
+  roomBookings?: Prisma.RoomBookingUncheckedUpdateManyWithoutUnifiedBookingNestedInput
+  refunds?: Prisma.RefundUncheckedUpdateManyWithoutUnifiedBookingNestedInput
+}
+
+export type UnifiedBookingCreateWithoutRefundsInput = {
+  id?: string
+  totalAmount: number
+  paidAmount?: number
+  paymentStatus?: $Enums.PaymentStatus
+  status?: $Enums.UnifiedBookingStatus
+  paymentMethod?: $Enums.PaymentMethod | null
+  customerName?: string | null
+  customerPhone?: string | null
+  userId?: string | null
+  staffId: string
+  transactionId?: string | null
+  refundedAmount?: number
+  refundStatus?: $Enums.RefundStatus | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  ticketBookings?: Prisma.TicketBookingCreateNestedManyWithoutUnifiedBookingInput
+  restaurantOrders?: Prisma.RestaurantOrderCreateNestedManyWithoutUnifiedBookingInput
+  roomBookings?: Prisma.RoomBookingCreateNestedManyWithoutUnifiedBookingInput
+}
+
+export type UnifiedBookingUncheckedCreateWithoutRefundsInput = {
+  id?: string
+  totalAmount: number
+  paidAmount?: number
+  paymentStatus?: $Enums.PaymentStatus
+  status?: $Enums.UnifiedBookingStatus
+  paymentMethod?: $Enums.PaymentMethod | null
+  customerName?: string | null
+  customerPhone?: string | null
+  userId?: string | null
+  staffId: string
+  transactionId?: string | null
+  refundedAmount?: number
+  refundStatus?: $Enums.RefundStatus | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  ticketBookings?: Prisma.TicketBookingUncheckedCreateNestedManyWithoutUnifiedBookingInput
+  restaurantOrders?: Prisma.RestaurantOrderUncheckedCreateNestedManyWithoutUnifiedBookingInput
+  roomBookings?: Prisma.RoomBookingUncheckedCreateNestedManyWithoutUnifiedBookingInput
+}
+
+export type UnifiedBookingCreateOrConnectWithoutRefundsInput = {
+  where: Prisma.UnifiedBookingWhereUniqueInput
+  create: Prisma.XOR<Prisma.UnifiedBookingCreateWithoutRefundsInput, Prisma.UnifiedBookingUncheckedCreateWithoutRefundsInput>
+}
+
+export type UnifiedBookingUpsertWithoutRefundsInput = {
+  update: Prisma.XOR<Prisma.UnifiedBookingUpdateWithoutRefundsInput, Prisma.UnifiedBookingUncheckedUpdateWithoutRefundsInput>
+  create: Prisma.XOR<Prisma.UnifiedBookingCreateWithoutRefundsInput, Prisma.UnifiedBookingUncheckedCreateWithoutRefundsInput>
+  where?: Prisma.UnifiedBookingWhereInput
+}
+
+export type UnifiedBookingUpdateToOneWithWhereWithoutRefundsInput = {
+  where?: Prisma.UnifiedBookingWhereInput
+  data: Prisma.XOR<Prisma.UnifiedBookingUpdateWithoutRefundsInput, Prisma.UnifiedBookingUncheckedUpdateWithoutRefundsInput>
+}
+
+export type UnifiedBookingUpdateWithoutRefundsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  paidAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  status?: Prisma.EnumUnifiedBookingStatusFieldUpdateOperationsInput | $Enums.UnifiedBookingStatus
+  paymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffId?: Prisma.StringFieldUpdateOperationsInput | string
+  transactionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refundedAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  refundStatus?: Prisma.NullableEnumRefundStatusFieldUpdateOperationsInput | $Enums.RefundStatus | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  ticketBookings?: Prisma.TicketBookingUpdateManyWithoutUnifiedBookingNestedInput
+  restaurantOrders?: Prisma.RestaurantOrderUpdateManyWithoutUnifiedBookingNestedInput
+  roomBookings?: Prisma.RoomBookingUpdateManyWithoutUnifiedBookingNestedInput
+}
+
+export type UnifiedBookingUncheckedUpdateWithoutRefundsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  totalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  paidAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  status?: Prisma.EnumUnifiedBookingStatusFieldUpdateOperationsInput | $Enums.UnifiedBookingStatus
+  paymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffId?: Prisma.StringFieldUpdateOperationsInput | string
+  transactionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refundedAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  refundStatus?: Prisma.NullableEnumRefundStatusFieldUpdateOperationsInput | $Enums.RefundStatus | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  ticketBookings?: Prisma.TicketBookingUncheckedUpdateManyWithoutUnifiedBookingNestedInput
   restaurantOrders?: Prisma.RestaurantOrderUncheckedUpdateManyWithoutUnifiedBookingNestedInput
   roomBookings?: Prisma.RoomBookingUncheckedUpdateManyWithoutUnifiedBookingNestedInput
 }
@@ -882,12 +1098,14 @@ export type UnifiedBookingCountOutputType = {
   ticketBookings: number
   restaurantOrders: number
   roomBookings: number
+  refunds: number
 }
 
 export type UnifiedBookingCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   ticketBookings?: boolean | UnifiedBookingCountOutputTypeCountTicketBookingsArgs
   restaurantOrders?: boolean | UnifiedBookingCountOutputTypeCountRestaurantOrdersArgs
   roomBookings?: boolean | UnifiedBookingCountOutputTypeCountRoomBookingsArgs
+  refunds?: boolean | UnifiedBookingCountOutputTypeCountRefundsArgs
 }
 
 /**
@@ -921,6 +1139,13 @@ export type UnifiedBookingCountOutputTypeCountRoomBookingsArgs<ExtArgs extends r
   where?: Prisma.RoomBookingWhereInput
 }
 
+/**
+ * UnifiedBookingCountOutputType without action
+ */
+export type UnifiedBookingCountOutputTypeCountRefundsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RefundWhereInput
+}
+
 
 export type UnifiedBookingSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -934,11 +1159,14 @@ export type UnifiedBookingSelect<ExtArgs extends runtime.Types.Extensions.Intern
   userId?: boolean
   staffId?: boolean
   transactionId?: boolean
+  refundedAmount?: boolean
+  refundStatus?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   ticketBookings?: boolean | Prisma.UnifiedBooking$ticketBookingsArgs<ExtArgs>
   restaurantOrders?: boolean | Prisma.UnifiedBooking$restaurantOrdersArgs<ExtArgs>
   roomBookings?: boolean | Prisma.UnifiedBooking$roomBookingsArgs<ExtArgs>
+  refunds?: boolean | Prisma.UnifiedBooking$refundsArgs<ExtArgs>
   _count?: boolean | Prisma.UnifiedBookingCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["unifiedBooking"]>
 
@@ -954,6 +1182,8 @@ export type UnifiedBookingSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   userId?: boolean
   staffId?: boolean
   transactionId?: boolean
+  refundedAmount?: boolean
+  refundStatus?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["unifiedBooking"]>
@@ -970,6 +1200,8 @@ export type UnifiedBookingSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   userId?: boolean
   staffId?: boolean
   transactionId?: boolean
+  refundedAmount?: boolean
+  refundStatus?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["unifiedBooking"]>
@@ -986,15 +1218,18 @@ export type UnifiedBookingSelectScalar = {
   userId?: boolean
   staffId?: boolean
   transactionId?: boolean
+  refundedAmount?: boolean
+  refundStatus?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type UnifiedBookingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "totalAmount" | "paidAmount" | "paymentStatus" | "status" | "paymentMethod" | "customerName" | "customerPhone" | "userId" | "staffId" | "transactionId" | "createdAt" | "updatedAt", ExtArgs["result"]["unifiedBooking"]>
+export type UnifiedBookingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "totalAmount" | "paidAmount" | "paymentStatus" | "status" | "paymentMethod" | "customerName" | "customerPhone" | "userId" | "staffId" | "transactionId" | "refundedAmount" | "refundStatus" | "createdAt" | "updatedAt", ExtArgs["result"]["unifiedBooking"]>
 export type UnifiedBookingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   ticketBookings?: boolean | Prisma.UnifiedBooking$ticketBookingsArgs<ExtArgs>
   restaurantOrders?: boolean | Prisma.UnifiedBooking$restaurantOrdersArgs<ExtArgs>
   roomBookings?: boolean | Prisma.UnifiedBooking$roomBookingsArgs<ExtArgs>
+  refunds?: boolean | Prisma.UnifiedBooking$refundsArgs<ExtArgs>
   _count?: boolean | Prisma.UnifiedBookingCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UnifiedBookingIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1006,6 +1241,7 @@ export type $UnifiedBookingPayload<ExtArgs extends runtime.Types.Extensions.Inte
     ticketBookings: Prisma.$TicketBookingPayload<ExtArgs>[]
     restaurantOrders: Prisma.$RestaurantOrderPayload<ExtArgs>[]
     roomBookings: Prisma.$RoomBookingPayload<ExtArgs>[]
+    refunds: Prisma.$RefundPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1019,6 +1255,8 @@ export type $UnifiedBookingPayload<ExtArgs extends runtime.Types.Extensions.Inte
     userId: string | null
     staffId: string
     transactionId: string | null
+    refundedAmount: number
+    refundStatus: $Enums.RefundStatus | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["unifiedBooking"]>
@@ -1418,6 +1656,7 @@ export interface Prisma__UnifiedBookingClient<T, Null = never, ExtArgs extends r
   ticketBookings<T extends Prisma.UnifiedBooking$ticketBookingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UnifiedBooking$ticketBookingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TicketBookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   restaurantOrders<T extends Prisma.UnifiedBooking$restaurantOrdersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UnifiedBooking$restaurantOrdersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RestaurantOrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   roomBookings<T extends Prisma.UnifiedBooking$roomBookingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UnifiedBooking$roomBookingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RoomBookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  refunds<T extends Prisma.UnifiedBooking$refundsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UnifiedBooking$refundsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RefundPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1458,6 +1697,8 @@ export interface UnifiedBookingFieldRefs {
   readonly userId: Prisma.FieldRef<"UnifiedBooking", 'String'>
   readonly staffId: Prisma.FieldRef<"UnifiedBooking", 'String'>
   readonly transactionId: Prisma.FieldRef<"UnifiedBooking", 'String'>
+  readonly refundedAmount: Prisma.FieldRef<"UnifiedBooking", 'Float'>
+  readonly refundStatus: Prisma.FieldRef<"UnifiedBooking", 'RefundStatus'>
   readonly createdAt: Prisma.FieldRef<"UnifiedBooking", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"UnifiedBooking", 'DateTime'>
 }
@@ -1922,6 +2163,30 @@ export type UnifiedBooking$roomBookingsArgs<ExtArgs extends runtime.Types.Extens
   take?: number
   skip?: number
   distinct?: Prisma.RoomBookingScalarFieldEnum | Prisma.RoomBookingScalarFieldEnum[]
+}
+
+/**
+ * UnifiedBooking.refunds
+ */
+export type UnifiedBooking$refundsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Refund
+   */
+  select?: Prisma.RefundSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Refund
+   */
+  omit?: Prisma.RefundOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RefundInclude<ExtArgs> | null
+  where?: Prisma.RefundWhereInput
+  orderBy?: Prisma.RefundOrderByWithRelationInput | Prisma.RefundOrderByWithRelationInput[]
+  cursor?: Prisma.RefundWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RefundScalarFieldEnum | Prisma.RefundScalarFieldEnum[]
 }
 
 /**
